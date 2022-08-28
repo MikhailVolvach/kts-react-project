@@ -1,0 +1,11 @@
+@import "@styles/variables";
+
+.content {
+  padding-top: 100px;
+  padding-bottom: 50px;
+
+  &__container {
+    color: inherit;
+  }
+}
+

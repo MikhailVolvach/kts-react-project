@@ -1,0 +1,68 @@
+@import "@styles/variables";
+
+.checkbox {
+    &:checked,
+    &:not(:checked) {
+        position: absolute;
+        left: -9999px;
+    }
+
+    &:checked + label,
+    &:not(:checked) + label{
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        padding-left: 48px;
+        line-height: 40px;
+    }
+
+    &:checked + label::before,
+    &:not(:checked) + label::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        background-color: $screen-color;
+        box-shadow: 0px 4px 120px $paragraph-color;
+    }
+
+    &:checked + label::after,
+    &:not(:checked) + label::after {
+        content: "";
+        position: absolute;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+
+    &:not(:checked) + label::after {
+        opacity: 0;
+    }
+
+    &:checked + label::after {
+        opacity: 1;
+    }
+
+    &:checked + label:after,
+    &:not(:checked) + label:after {
+        left: 10px;
+        top: 10px;
+        width: 22px;
+        height: 14px;
+        border-radius: 1px;
+        border-left: 3px solid $main-color;
+        border-bottom: 3px solid $main-color;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    &:not([disabled]):focus + label::before {
+        border: 1px solid $main-color;
+    }
+}
