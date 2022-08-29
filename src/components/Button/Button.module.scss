@@ -14,7 +14,8 @@
         opacity: 0.7;
     }
 
-    &:disabled, &_disabled {
+    &:disabled,
+    &_disabled {
         background-color: $disabled-color;
         cursor: not-allowed;
     }

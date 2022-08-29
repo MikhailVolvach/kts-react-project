@@ -1,30 +1,30 @@
 @import "@styles/variables";
 
 .list {
-  margin-top: 50px;
+    margin-top: 50px;
 
-  &__header {
-    display: flex;
-    align-items: center;
-  }
+    &__header {
+        display: flex;
+        align-items: center;
+    }
 
-  &__size {
-    padding: 10px 16px;
-    border-radius: 20px;
-    background-color: $placeholder-color;
-    color: $main-color;
-    font-size: 16px;
-    margin-left: 10px;
-  }
+    &__size {
+        padding: 10px 16px;
+        border-radius: 20px;
+        background-color: $placeholder-color;
+        color: $main-color;
+        font-size: 16px;
+        margin-left: 10px;
+    }
 
-  &__products {
-    color: inherit;
-  }
+    &__products {
+        color: inherit;
+    }
 }
 
 .products {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
 }

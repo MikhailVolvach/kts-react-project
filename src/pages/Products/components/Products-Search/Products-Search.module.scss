@@ -1,47 +1,45 @@
 @import "@styles/variables";
 
 .search {
-  margin-top: 80px;
-  display: flex;
-  gap: 29px;
-  align-items: flex-start;
-
-  &__input {
-    position: relative;
+    margin-top: 80px;
     display: flex;
-    flex-basis: 1021px;
-    flex-shrink: 1;
-    flex-grow: 1;
+    gap: 29px;
+    align-items: flex-start;
 
-    & input {
-      width: 100%;
-      padding: 26px 184px 26px 75px;
+    &__input {
+        position: relative;
+        display: flex;
+        flex-basis: 1021px;
+        flex-shrink: 1;
+        flex-grow: 1;
+
+        & input {
+            width: 100%;
+            padding: 26px 184px 26px 75px;
+        }
+
+        & button {
+            position: absolute;
+            height: 54px;
+            width: 138px;
+            right: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &::before {
+            content: "";
+            background-image: url("../../../../icons/search-icon.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 25px;
+            width: 32px;
+            height: 32px;
+        }
     }
-
-    & button {
-      position: absolute;
-      height: 54px;
-      width: 138px;
-      right: 28px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &::before {
-      content: '';
-      background-image: $search-icon;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      display: block;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 25px;
-      width: 32px;
-      height: 32px;
-    }
-  }
-
 }
-

@@ -8,7 +8,7 @@
     }
 
     &:checked + label,
-    &:not(:checked) + label{
+    &:not(:checked) + label {
         display: inline-block;
         position: relative;
         cursor: pointer;
@@ -17,8 +17,8 @@
     }
 
     &:checked + label::before,
-    &:not(:checked) + label::before{
-        content: '';
+    &:not(:checked) + label::before {
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
