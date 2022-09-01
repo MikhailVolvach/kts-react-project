@@ -1,40 +1,35 @@
 @import "@styles/variables";
 
 .button {
-    padding: 15px 28px;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 15px 28px;
+  border: 2px solid transparent;
+  outline: none;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    &:not([disabled]):hover {
-        opacity: 0.7;
-    }
+  &:disabled {
+    background-color: $disabled-color;
+    border-color: $disabled-color;
+    pointer-events: none;
+    cursor: default;
+  }
 
-    &:disabled,
-    &_disabled {
-        background-color: $disabled-color;
-        cursor: not-allowed;
-    }
+  &:not([disabled]):hover {
+    opacity: 0.7;
+  }
 
-    &_color-primary {
-        background-color: $main-color;
-        color: $screen-color;
-    }
+  &_color-primary {
+    background-color: $main-color;
+    border-color: $main-color;
+    color: $screen-color;
+  }
 
-    &_color-secondary {
-        background-color: $screen-color;
-        color: $text-color;
-        border: 2px solid $line-color;
-    }
-
-    & .loader {
-        margin-left: -10px;
-        margin-right: 10px;
-        border-color: $screen-color;
-        border-bottom-color: $disabled-color;
-    }
+  &_color-secondary {
+    background-color: $screen-color;
+    color: $text-color;
+    border-color: $line-color;
+  }
 }

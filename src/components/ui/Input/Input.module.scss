@@ -1,27 +1,27 @@
 @import "@styles/variables";
 
 .input {
-    display: block;
-    width: 300px;
-    height: 84px;
-    box-shadow: 0px 4px 120px $shadow-color;
-    padding: 26px 29px;
+  display: block;
+  box-shadow: 0 4px 120px $shadow-color;
+  padding: 26px 29px;
+  font-size: 18px;
+  line-height: 180%;
+  font-weight: 500;
 
-    font-size: 18px;
-    line-height: 180%;
-    font-weight: 500;
+  &:not([disabled]):focus {
+    outline: 1px solid $main-color;
+  }
 
-    &:not([disabled]):focus {
-        outline: 1px solid $main-color;
-    }
+  &::placeholder {
+    color: $paragraph-color;
+  }
 
+  &:disabled {
     &::placeholder {
-        color: $paragraph-color;
+      opacity: 0.7;
     }
 
-    &:disabled,
-    &_disabled {
-        opacity: 0.7;
-        pointer-events: none;
-    }
+    opacity: 0.7;
+    pointer-events: none;
+  }
 }

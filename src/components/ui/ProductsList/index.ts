@@ -1,1 +1,2 @@
-export { default } from "./Products-List";
+export { default } from "./ProductsList";
+export type { ProductsListProps } from "./config";

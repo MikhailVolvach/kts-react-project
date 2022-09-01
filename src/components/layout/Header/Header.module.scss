@@ -1,45 +1,31 @@
 @import "@styles/variables";
 
 .header {
-    height: 120px;
-    width: 100%;
-    background-color: $screen-color;
+  height: $header-height;
+  background-color: $screen-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid $line-color;
+
+  &__logo {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid $line-color;
+  }
 
-    &__logo {
-        display: flex;
-        align-items: center;
-    }
-
-    &__nav {
-        color: inherit;
-    }
-
-    &__user {
-        display: flex;
-        gap: 24px;
-    }
-
-    &__cart {
-    }
-
-    &__account {
-    }
+  &__user {
+    display: flex;
+    gap: 24px;
+  }
 }
 
 .nav {
-    color: inherit;
+  &__list {
+    display: flex;
+    gap: 52px;
+  }
 
-    &__list {
-        list-style: none;
-        display: flex;
-        gap: 52px;
-    }
-
-    &__item {
-        color: $text-color;
-    }
+  &__item {
+    color: $text-color;
+  }
 }

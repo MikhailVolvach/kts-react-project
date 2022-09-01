@@ -1,26 +1,14 @@
 import React from "react";
 
-import classNames from "classnames";
+import cn from "classnames";
 
+import { MultiDropdownProps } from "./";
 import OptionsComponent from "./components/OptionsComponent";
-import styles from "./MultiDropdown.module.scss";
-
-export type Option = {
-  key: string;
-  value: string;
-};
-
-export type MultiDropdownProps = React.PropsWithChildren<{
-  options: Option[];
-  value: Option[];
-  onChange: (value: Option[]) => void;
-  disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
-}>;
+import s from "./MultiDropdown.module.scss";
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
   options,
-  value,
+  selected,
   onChange,
   disabled = false,
   pluralizeOptions,
@@ -31,22 +19,22 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     setIsVisible(!isVisible);
   };
 
-  const multiDropdownClass = classNames(
-    styles.multidropdown,
-    `${disabled ? styles.multidropdown__disabled : ""}`
-  );
-
   return (
-    <div className={multiDropdownClass}>
-      <div onClick={toggleVisible} className={styles.multidropdown__selected}>
+    <div className={cn(s.multidropdown, disabled && s.multidropdown__disabled)}>
+      <div onClick={toggleVisible} className={s.multidropdown__selected}>
         {children}
-        {pluralizeOptions(value)}
+        {pluralizeOptions(selected)}
+        {/*{selected.map((val) => val.value)}*/}
       </div>
       {isVisible && !disabled && (
-        <OptionsComponent options={options} value={value} onChange={onChange} />
+        <OptionsComponent
+          options={options}
+          selected={selected}
+          onChange={onChange}
+        />
       )}
     </div>
   );
 };
 
-export default MultiDropdown;
+export default React.memo(MultiDropdown);

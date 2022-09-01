@@ -1,37 +1,32 @@
 import React from "react";
 
-import { Option } from "@components/MultiDropdown";
-import styles from "@components/MultiDropdown/MultiDropdown.module.scss";
-import classNames from "classnames";
+import s from "@ui/MultiDropdown/MultiDropdown.module.scss";
+import cn from "classnames";
 
-type OptionProps = {
-  keyOpt: string;
-  value: string;
-  onChange?: (values: Option[]) => void;
-  selected: boolean;
-};
+import { OptionProps } from "./";
 
 const OptionComponent: React.FC<OptionProps> = ({
   keyOpt,
-  value,
-  onChange,
   selected,
+  onChange,
+  isSelected,
 }) => {
   const handleClick = () => {
     if (!onChange) return;
-    onChange([{ key: keyOpt, value: value }]);
+    onChange([{ key: keyOpt, value: selected }]);
   };
 
-  const optionComponentClass = classNames(
-    styles.multidropdown__option,
-    `${selected ? styles.multidropdown__option_selected : ""}`
-  );
-
   return (
-    <div onClick={handleClick} className={optionComponentClass}>
-      {value}
+    <div
+      onClick={handleClick}
+      className={cn(
+        s.multidropdown__option,
+        isSelected && s.multidropdown__option_selected
+      )}
+    >
+      {selected}
     </div>
   );
 };
 
-export default OptionComponent;
+export default React.memo(OptionComponent);

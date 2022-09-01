@@ -1,0 +1,12 @@
+.header {
+  &__title {
+    text-align: center;
+  }
+
+  &__subtitle {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    margin: 20px auto 80px;
+  }
+}

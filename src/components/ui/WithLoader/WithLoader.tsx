@@ -1,30 +1,24 @@
 import React from "react";
 
-import Loader, { LoaderSize } from "@components/Loader";
-import classNames from "classnames";
+import { Color } from "@configs/.";
+import Loader, { LoaderSize } from "@ui/Loader";
+import cn from "classnames";
 
-import styles from "./WithLoader.module.scss";
-
-export type WithLoaderProps = React.PropsWithChildren<{
-  loading: boolean;
-  size?: LoaderSize;
-}>;
+import { WithLoaderProps } from "./";
+import s from "./WithLoader.module.scss";
 
 const WithLoader: React.FC<WithLoaderProps> = ({
   loading = true,
   size = LoaderSize.m,
   children,
+  loaderColor = Color.primaryInverted,
 }) => {
-  const WithLoaderClass = classNames(
-    styles.withloader,
-    `${loading ? styles.withloader_loading : null}`
-  );
   return (
-    <div className={WithLoaderClass}>
-      {loading && <Loader size={size} loading />}
+    <div className={cn(s.withloader, loading && s.withloader_loading)}>
+      {loading && <Loader loaderColor={loaderColor} size={size} loading />}
       <div>{children}</div>
     </div>
   );
 };
 
-export default WithLoader;
+export default React.memo(WithLoader);

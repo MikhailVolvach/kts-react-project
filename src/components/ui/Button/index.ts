@@ -1,1 +1,2 @@
-export { default, ButtonColor } from "./Button";
+export { default } from "./Button";
+export type { ButtonProps } from "./config";

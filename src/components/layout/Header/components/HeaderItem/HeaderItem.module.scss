@@ -1,18 +1,19 @@
 @import "@styles/variables";
 
 .nav {
-    &__item {
-        padding: 43px 4px;
+  &__item {
+    padding: 43px 4px;
 
-        a {
-            color: $text-color;
-        }
-
-        &_active {
-            border-bottom: 3px solid $main-color;
-            a {
-                color: $main-color;
-            }
-        }
+    a {
+      color: $text-color;
     }
+
+    &_active {
+      border-bottom: 3px solid $main-color;
+
+      a {
+        color: $main-color;
+      }
+    }
+  }
 }

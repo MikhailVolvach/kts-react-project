@@ -1,15 +1,7 @@
 import React from "react";
 
 import styles from "./CheckBox.module.scss";
-
-type CheckBoxProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "onChange"
-> & {
-  checked?: boolean;
-  onChange: (value: boolean) => void;
-  text?: string;
-};
+import { CheckBoxProps } from "./config";
 
 const CheckBox: React.FC<CheckBoxProps> = ({
   onChange,
@@ -27,7 +19,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   return (
     <div onClick={handleChange}>
       <input
-        className={styles.checkbox}
+        className={[styles.checkbox, "visually-hidden"].join(" ")}
         checked={status}
         onChange={handleChange}
         type="checkbox"
@@ -38,4 +30,4 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   );
 };
 
-export default CheckBox;
+export default React.memo(CheckBox);

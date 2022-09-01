@@ -1,28 +1,18 @@
-import React, { FC } from "react";
+import React from "react";
 
-import classNames from "classnames";
+import { HeaderItemProps } from "@layout/Header/components/HeaderItem/config";
+import cn from "classnames";
 import { Link, useLocation } from "react-router-dom";
 
-import styles from "./HeaderItem.module.scss";
+import s from "./HeaderItem.module.scss";
 
-export type HeaderItemProps = {
-  link: string;
-  text: string;
-};
+const HeaderItem: React.FC<HeaderItemProps> = ({ link, text }) => {
+  const { pathname } = useLocation();
 
-const HeaderItem: FC<HeaderItemProps> = ({ link, text }) => {
-  const location = useLocation();
-  let pathName = location.pathname.slice(1);
-
-  if (pathName.indexOf("/") !== -1)
-    pathName = pathName.slice(0, pathName.indexOf("/"));
-
-  const headerItemClass = classNames(
-    styles.nav__item,
-    `${"/" + pathName === link ? styles.nav__item_active : ""}`
-  );
   return (
-    <li className={headerItemClass}>
+    <li
+      className={cn(s.nav__item, pathname.includes(link) && s.nav__item_active)}
+    >
       <Link to={link}>
         <p>{text}</p>
       </Link>
@@ -30,4 +20,4 @@ const HeaderItem: FC<HeaderItemProps> = ({ link, text }) => {
   );
 };
 
-export default HeaderItem;
+export default React.memo(HeaderItem);

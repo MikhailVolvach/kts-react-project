@@ -1,53 +1,42 @@
 import React from "react";
 
-import Loader, { LoaderSize } from "@components/Loader";
-import classNames from "classnames";
+import { Color } from "@configs/.";
+import { ButtonProps } from "@ui/Button/config";
+import Loader, { LoaderSize } from "@ui/Loader";
+import cn from "classnames";
 
-import styles from "./Button.module.scss";
-
-export enum ButtonColor {
-  primary = "primary",
-  secondary = "secondary",
-}
-
-export type ButtonProps = React.PropsWithChildren<{
-  loading?: boolean;
-  color?: ButtonColor;
-}> &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
+import s from "./Button.module.scss";
 
 const Button: React.FC<ButtonProps> = ({
   loading,
-  color = ButtonColor.primary,
+  color = Color.primary,
   children,
-  onClick,
-  onMouseOver,
   className,
-  disabled = "",
+  disabled,
   ...rest
 }) => {
-  if (loading) disabled = true;
-  const buttonClass = classNames(
-    styles.button,
-    `${color === ButtonColor.primary ? styles["button_color-primary"] : ""}`,
-    `${
-      color === ButtonColor.secondary ? styles["button_color-secondary"] : ""
-    }`,
-    `${disabled ? styles.button_disabled : ""}`,
-    className
-  );
-
   return (
     <button
       {...rest}
-      onClick={() => {}}
-      onMouseOver={onMouseOver}
-      className={buttonClass}
+      disabled={disabled}
+      className={cn(
+        s.button,
+        !disabled && s[`button_color-${color}`],
+        disabled && s.button_disabled,
+        className
+      )}
     >
-      {loading && <Loader size={LoaderSize.s} loading />}
+      {loading && (
+        <Loader
+          disabled={disabled}
+          loaderColor={color}
+          size={LoaderSize.s}
+          loading
+        />
+      )}
       {children}
     </button>
   );
 };
 
-export default Button;
+export default React.memo(Button);

@@ -2,19 +2,11 @@ import React, { ChangeEvent } from "react";
 
 import classNames from "classnames";
 
+import { InputProps } from "./config";
 import styles from "./Input.module.scss";
 
-export type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "onChange"
-> & {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-};
-
 const Input: React.FC<InputProps> = ({
-  value,
+  value = "",
   onChange,
   className,
   ...rest
@@ -43,4 +35,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);
