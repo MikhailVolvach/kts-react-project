@@ -1,32 +1,40 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { RequestData } from "@pages/Products";
+import ProductsStore from "@store/ProductsStore";
 import ProductsList from "@ui/ProductsList";
-import { fetchData } from "@utils/fetchData";
+import { log } from "@utils/log";
+import { useLocalStore } from "@utils/useLocalStore";
+import { observer } from "mobx-react-lite";
+import { useParams } from "react-router-dom";
 
 import { ProductRelatedProps } from "./";
 import s from "./ProductRelated.module.scss";
 
-const ProductRelated: FC<ProductRelatedProps> = ({ className }) => {
-  const [related, setRelated] = useState<RequestData[]>([]);
+const ProductRelated: FC<ProductRelatedProps> = ({ className, category }) => {
+  const shopStore = useLocalStore(() => new ProductsStore());
+
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchData("https://fakestoreapi.com/products?limit=3", setRelated);
-  }, []);
+    let url = `https://fakestoreapi.com/products/category/${category}?limit=4`;
+    shopStore.getProductsList(url);
+
+    shopStore.list.filter((elem) => elem.id.toString() !== id);
+  }, [category, id, shopStore]);
+
+  log(category);
 
   return (
     <div className={[className, s.related].join(" ")}>
       <ProductsList
-        title={
-          <>
-            <h2>Related Items</h2>
-          </>
-        }
-        productsList={related}
+        title={<h2>Related Items</h2>}
+        productsList={shopStore?.list?.filter(
+          (elem) => elem?.id?.toString() !== id
+        )}
         className="related__list"
       />
     </div>
   );
 };
 
-export default React.memo(ProductRelated);
+export default observer(ProductRelated);

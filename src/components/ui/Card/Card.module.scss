@@ -3,8 +3,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  height: 100%;
+
   max-width: 394px;
+  height: 100%;
 
   & span {
     display: block;
@@ -19,37 +20,44 @@
   }
 
   &__image {
-    height: 360px;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 100%;
+    height: 360px;
   }
 
   &__category {
-    color: $paragraph-color;
     margin-top: 26px;
+
+    color: $paragraph-color;
     text-transform: capitalize;
   }
 
   &__title {
-    letter-spacing: 0.01em;
-    margin-top: 14px;
     display: flex;
     align-items: flex-start;
+
+    margin-top: 14px;
+
     color: $text-color;
+    letter-spacing: 0.01em;
   }
 
-  &__subtitle {
-    color: $paragraph-color;
-    white-space: nowrap;
+  &__description {
     overflow: hidden;
-    text-overflow: ellipsis;
+
     height: 1.5em;
+
+    color: $paragraph-color;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__price {
     margin-top: 18px;
+
     color: $text-color;
   }
 }

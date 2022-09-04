@@ -1,20 +1,24 @@
 @import "@styles/variables";
 
 .button {
-  padding: 15px 28px;
-  border: 2px solid transparent;
-  outline: none;
-  font-size: 18px;
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
 
+  padding: 15px 28px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  border: 2px solid transparent;
+  outline: none;
+
   &:disabled {
-    background-color: $disabled-color;
-    border-color: $disabled-color;
     pointer-events: none;
     cursor: default;
+
+    background-color: $disabled-color;
+    border-color: $disabled-color;
   }
 
   &:not([disabled]):hover {
@@ -22,14 +26,16 @@
   }
 
   &_color-primary {
+    color: $screen-color;
+
     background-color: $main-color;
     border-color: $main-color;
-    color: $screen-color;
   }
 
   &_color-secondary {
-    background-color: $screen-color;
     color: $text-color;
+
+    background-color: $screen-color;
     border-color: $line-color;
   }
 }

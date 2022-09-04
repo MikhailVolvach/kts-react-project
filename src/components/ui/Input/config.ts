@@ -4,7 +4,7 @@ export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange"
 > & {
-  value?: string;
+  value: string;
   onChange: (value: string) => void;
   className?: string;
 };

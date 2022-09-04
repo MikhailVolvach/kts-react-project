@@ -9,7 +9,9 @@
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"],
       "@icons/*": ["src/assets/icons/*"],
-      "@img/*": ["src/assets/img/*"]
+      "@img/*": ["src/assets/img/*"],
+      "@store/*": ["src/store/*"],
+      "@models/*": ["src/store/models/*"]
     }
   }
 }

@@ -1,15 +1,19 @@
 @import "@styles/variables";
 
 .multidropdown {
-  color: inherit;
-  font-family: Roboto;
-  width: 190px;
-  filter: drop-shadow(0 4px 120px $shadow-color);
   cursor: pointer;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
+
   position: relative;
+
+  width: 190px;
+
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: inherit;
+
+  filter: drop-shadow(0 4px 120px $shadow-color);
 
   &:not([disabled]):focus &__selected {
     border-color: $main-color;
@@ -22,8 +26,10 @@
   &__selected {
     width: 100%;
     height: 84px;
+
     font-size: 18px;
     line-height: 16px;
+
     background-color: $screen-color;
     border: 1px solid transparent;
   }
@@ -34,11 +40,13 @@
   }
 
   &__options {
-    margin: 12px 0 0;
     position: absolute;
     top: 100%;
-    left: 0;
     right: 0;
+    left: 0;
+
+    margin: 12px 0 0;
+
     background-color: $screen-color;
   }
 

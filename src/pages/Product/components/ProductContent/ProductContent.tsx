@@ -1,67 +1,64 @@
 import React, { FC, useEffect, useState } from "react";
 
 import { Color } from "@configs/.";
-import { resultType } from "@pages/Product";
 import Button from "@ui/Button";
 import WithLoader from "@ui/WithLoader";
-import axios from "axios";
+import { log } from "@utils/log";
+import { Meta } from "@utils/meta";
+import { useLocalStore } from "@utils/useLocalStore";
+import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 
+import ProductsStore from "../../../../store/ProductsStore/ProductsStore";
 import { ProductContentProps } from "./";
 import s from "./ProductContent.module.scss";
 
-const ProductContent: FC<ProductContentProps> = ({ className }) => {
-  const [productData, setProductData] = useState<resultType>({
-    id: 0,
-    image: "",
-    category: "",
-    title: "",
-    price: 0,
-    description: "",
-  });
+const ProductContent: FC<ProductContentProps> = ({ className, callback }) => {
+  const shopStore = useLocalStore(() => new ProductsStore());
 
-  const [fullText, setFullText] = useState(false);
-  const [productIsLoading, setProductIsLoading] = useState(false);
+  const [fullText, setFullText] = useState(
+    shopStore?.list[0]?.description?.length > 179 || false
+  );
 
   const { id } = useParams();
 
   useEffect(() => {
-    const fetch = async () => {
-      setProductIsLoading(true);
-      const { data } = await axios.get(
-        `https://fakestoreapi.com/products/${id}`
-      );
+    let url = `https://fakestoreapi.com/products/${id}`;
+    shopStore?.getProductsList(url);
+    setFullText(shopStore?.list?.[0]?.description.length > 179);
+  }, [id, shopStore, setFullText, callback]);
 
-      setProductData(data);
-      setFullText(data.description.length > 179);
-      setProductIsLoading(false);
-    };
+  const data = shopStore.list[0];
 
-    fetch();
-  }, [id]);
+  if (data?.category !== undefined && data?.category !== "") {
+    callback(data?.category);
+  }
+
+  // log(shopStore.list);
 
   return (
-    <WithLoader loaderColor={Color.primaryInverted} loading={productIsLoading}>
+    <WithLoader
+      loaderColor={Color.primaryInverted}
+      loading={shopStore?.meta === Meta.loading}
+    >
       <div className={[className, s.content].join(" ")}>
         <div className={s.content__left}>
           <div className={s.content__image}>
-            <img src={productData.image} alt={productData.title} />
+            <img src={data?.image} alt={data?.title} />
           </div>
         </div>
         <div className={s.content__right}>
-          <h2 className={s.content__title}>{productData.title}</h2>
-          <p className={s.content__category}>{productData.category}</p>
+          <h2 className={s.content__title}>{data?.title}</h2>
+          <p className={s.content__category}>{data?.category}</p>
           {fullText ? (
             <p className={s.content__description}>
-              {productData.description.slice(0, 178)}...
+              {data?.description?.slice(0, 178)}...
               <span onClick={() => setFullText(!fullText)}>Read More</span>
             </p>
           ) : (
-            <p className={s.content__description}>{productData.description}</p>
+            <p className={s.content__description}>{data?.description}</p>
           )}
-          <p className={[s.content__price, "h2"].join(" ")}>
-            ${productData.price}
-          </p>
+          <p className={[s.content__price, "h2"].join(" ")}>${data?.price}</p>
           <div className={s.content__buttons}>
             <Button>Buy Now</Button>
             <Button color={Color.secondary}>Add to Chart</Button>
@@ -72,4 +69,4 @@ const ProductContent: FC<ProductContentProps> = ({ className }) => {
   );
 };
 
-export default React.memo(ProductContent);
+export default observer(ProductContent);

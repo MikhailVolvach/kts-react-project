@@ -2,6 +2,8 @@ import { Option } from "@ui/MultiDropdown";
 
 export type ProductsSearchProps = {
   className?: string;
+  callback: (value: string) => void;
+  value?: string;
 };
 
 export const options: Option[] = [

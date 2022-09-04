@@ -1,4 +1,10 @@
-import { RequestData } from "@pages/Products";
+import {
+  CollectionModel,
+  getInitialCollectionModel,
+  linearizeCollection,
+  normalizeCollection,
+} from "@models/shared/collection";
+import { normalizerRequestData, RequestDataModel } from "@models/Shop";
 import { log } from "@utils/log";
 import { Meta } from "@utils/meta";
 import { ILocalStore } from "@utils/useLocalStore";
@@ -11,18 +17,15 @@ import {
   runInAction,
 } from "mobx";
 
-const BASE_URL = "https://fakestoreapi.com/products";
-
 type PrivateFields = "_list" | "_meta";
 
-export default class ShopStore implements ILocalStore {
-  private _list: RequestData[] = [];
+export default class ProductsStore implements ILocalStore {
+  private _list: CollectionModel<number, RequestDataModel> =
+    getInitialCollectionModel();
   private _meta: Meta = Meta.initial;
-  private _url: string = "";
 
-  constructor(url: string = "") {
-    this._url = url;
-    makeObservable<ShopStore, PrivateFields>(this, {
+  constructor() {
+    makeObservable<ProductsStore, PrivateFields>(this, {
       _list: observable.ref,
       _meta: observable,
       list: computed,
@@ -31,35 +34,41 @@ export default class ShopStore implements ILocalStore {
     });
   }
 
-  get list(): RequestData[] {
-    return this._list;
+  get list(): RequestDataModel[] {
+    return linearizeCollection(this._list);
   }
 
   get meta(): Meta {
     return this._meta;
   }
 
-  async getProductsList() {
+  async getProductsList(url: string = "") {
     this._meta = Meta.loading;
-    this._list = [];
+    this._list = getInitialCollectionModel();
+    const response = await axios.get(url);
 
-    const response = await axios.get(BASE_URL + this._url);
     runInAction(() => {
-      if (response.status === 200) {
+      if (response.status !== 200) {
+        this._meta = Meta.error;
+      }
+      try {
+        const list: RequestDataModel[] = [];
+        if (Array.isArray(response.data)) {
+          for (const item of response.data) {
+            list.push(normalizerRequestData(item));
+          }
+        } else {
+          list.push(normalizerRequestData(response.data));
+        }
         this._meta = Meta.success;
-        this._list = response.data.map((raw: RequestData) => ({
-          id: raw.id,
-          image: raw.image,
-          category: raw.category,
-          title: raw.title,
-          description: raw.description,
-          price: raw.price,
-        }));
+        this._list = normalizeCollection(list, (listitem) => listitem.id);
         return;
+      } catch (e) {
+        log(e);
+        this._meta = Meta.error;
+        this._list = getInitialCollectionModel();
       }
     });
-
-    this._meta = Meta.error;
   }
 
   destroy(): void {
