@@ -11,7 +11,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   selected,
   onChange,
   disabled = false,
-  pluralizeOptions,
   children,
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
@@ -23,8 +22,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     <div className={cn(s.multidropdown, disabled && s.multidropdown__disabled)}>
       <div onClick={toggleVisible} className={s.multidropdown__selected}>
         {children}
-        {pluralizeOptions(selected)}
-        {/*{selected.map((val) => val.value)}*/}
+        {selected.map((val) => val.value)}
       </div>
       {isVisible && !disabled && (
         <OptionsComponent

@@ -4,24 +4,17 @@
   cursor: pointer;
 
   position: relative;
+  z-index: 1000;
 
   width: 190px;
 
-  font-family: Roboto;
+  font-family: Roboto, serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 16px;
   color: inherit;
 
   filter: drop-shadow(0 4px 120px $shadow-color);
-
-  &:not([disabled]):focus &__selected {
-    border-color: $main-color;
-  }
-
-  &:disabled {
-    opacity: 0.7;
-  }
 
   &__selected {
     width: 100%;
@@ -39,6 +32,21 @@
     box-shadow: 0 4px 120px $shadow-color;
   }
 
+  &__selected,
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:not([disabled]):focus &__selected {
+    border-color: $main-color;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+  }
+
   &__options {
     position: absolute;
     top: 100%;
@@ -48,13 +56,6 @@
     margin: 12px 0 0;
 
     background-color: $screen-color;
-  }
-
-  &__selected,
-  &__option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   &__option {

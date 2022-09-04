@@ -41,12 +41,7 @@ const ProductsSearch: FC<ProductsSearchProps> = ({
             Find Now
           </Button>
         </div>
-        <MultiDropdown
-          options={options}
-          selected={[]}
-          onChange={() => {}}
-          pluralizeOptions={() => "Filter"}
-        >
+        <MultiDropdown options={options} selected={[]} onChange={() => {}}>
           <img src={filter_icon} alt="Search" />
         </MultiDropdown>
       </div>
