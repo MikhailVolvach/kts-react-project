@@ -1,8 +1,8 @@
 export type resultType = {
-  id: number;
-  image: string;
-  title: string;
   category: string;
   description: string;
+  id: number;
+  image: string;
   price: number;
+  title: string;
 };

@@ -13,11 +13,16 @@ const Button: React.FC<ButtonProps> = ({
   children,
   className,
   disabled,
+  onClick,
   ...rest
 }) => {
+  const handleClick = React.useCallback(() => {
+    onClick?.(children);
+  }, [onClick]);
   return (
     <button
       {...rest}
+      onClick={handleClick}
       disabled={disabled}
       className={cn(
         s.button,
