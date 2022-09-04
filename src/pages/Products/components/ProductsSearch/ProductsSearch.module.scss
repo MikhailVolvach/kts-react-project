@@ -13,9 +13,7 @@
     position: relative;
 
     display: flex;
-    flex-basis: 1021px;
-    flex-grow: 1;
-    flex-shrink: 1;
+    flex: 1 1 1021px;
 
     &::before {
       content: "";
@@ -30,7 +28,7 @@
       width: 32px;
       height: 32px;
 
-      background-image: url(../../../../assets/icons/search-icon.svg);
+      background-image: url("../../../../assets/icons/search-icon.svg");
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;

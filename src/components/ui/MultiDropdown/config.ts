@@ -10,5 +10,4 @@ export type MultiDropdownProps = React.PropsWithChildren<{
   selected: Option[];
   onChange: (value: Option[]) => void;
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
 }>;
