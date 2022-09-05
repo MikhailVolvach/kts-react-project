@@ -1,0 +1,94 @@
+@import "@styles/variables";
+
+.loader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  &__elem {
+    display: block;
+    border: 4px solid $main-color;
+    border-radius: 50%;
+    border-bottom-color: transparent;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  &_size {
+    &-l {
+      .loader__elem {
+        width: 60px;
+        height: 60px;
+        border-width: 6px;
+      }
+    }
+
+    &-s {
+      .loader__elem {
+        width: 20px;
+        height: 20px;
+        border-width: 3px;
+      }
+    }
+  }
+
+  &_loading {
+    .loader__elem {
+      animation: rotation 1s linear infinite;
+    }
+  }
+
+  &_color {
+    &-primary {
+      background-color: $main-color;
+
+      .loader__elem {
+        border-color: $screen-color;
+        border-bottom-color: $main-color;
+      }
+    }
+
+    &-secondary {
+      background-color: $screen-color;
+
+      .loader__elem {
+        border-color: $text-color;
+        border-bottom-color: $screen-color;
+      }
+    }
+
+    &-primary-inverted {
+      background-color: $screen-color;
+
+      .loader__elem {
+        border-color: $main-color;
+        border-bottom-color: $screen-color;
+      }
+    }
+  }
+
+  &_disabled {
+    background-color: $disabled-color;
+
+    .loader__elem {
+      border-color: $screen-color;
+      border-bottom-color: $disabled-color;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

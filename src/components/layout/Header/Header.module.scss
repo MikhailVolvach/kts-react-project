@@ -1,0 +1,31 @@
+@import "@styles/variables";
+
+.header {
+  height: $header-height;
+  background-color: $screen-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid $line-color;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  &__user {
+    display: flex;
+    gap: 24px;
+  }
+}
+
+.nav {
+  &__list {
+    display: flex;
+    gap: 52px;
+  }
+
+  &__item {
+    color: $text-color;
+  }
+}
