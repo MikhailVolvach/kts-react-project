@@ -1,15 +1,14 @@
 import React, { FC, useEffect, useState } from "react";
 
 import { Color } from "@configs/.";
+import ProductsStore from "@store/ProductsStore/ProductsStore";
 import Button from "@ui/Button";
 import WithLoader from "@ui/WithLoader";
-import { log } from "@utils/log";
 import { Meta } from "@utils/meta";
 import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 
-import ProductsStore from "../../../../store/ProductsStore/ProductsStore";
 import { ProductContentProps } from "./";
 import s from "./ProductContent.module.scss";
 

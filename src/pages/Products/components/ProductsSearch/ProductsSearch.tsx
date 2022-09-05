@@ -1,11 +1,10 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { FC } from "react";
 
 import { Color } from "@configs/.";
 import filter_icon from "@icons/filter.svg";
 import Button from "@ui/Button";
 import Input from "@ui/Input";
-import MultiDropdown, { Option } from "@ui/MultiDropdown";
-import { log } from "@utils/log";
+import MultiDropdown from "@ui/MultiDropdown";
 
 import { options, ProductsSearchProps } from "./config";
 import s from "./ProductsSearch.module.scss";
@@ -26,7 +25,7 @@ const ProductsSearch: FC<ProductsSearchProps> = ({
     if (inputValue) {
       callback(inputValue);
     }
-  }, [inputValue]);
+  }, [callback, inputValue]);
 
   return (
     <div className={[className, s.search].join(" ")}>

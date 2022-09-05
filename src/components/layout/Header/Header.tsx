@@ -20,8 +20,8 @@ const Header = () => {
       </Link>
       <nav className={classNames(styles.header__nav, styles.nav)}>
         <ul className={styles.nav__list}>
-          {routes.map(({ path, text }) => (
-            <HeaderItem link={path} text={text} />
+          {routes.map(({ path, text }, index) => (
+            <HeaderItem key={index} link={path} text={text} />
           ))}
         </ul>
       </nav>

@@ -1,9 +1,7 @@
 import React from "react";
 
 import { RequestDataModel } from "@models/Shop";
-// import { RequestData } from "@pages/Products";
 import Card from "@ui/Card";
-import { log } from "@utils/log";
 import { Link } from "react-router-dom";
 
 import { ProductsListProps } from "./";

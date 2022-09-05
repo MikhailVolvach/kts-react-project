@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { RequestData } from "@pages/Products";
-import { log } from "@utils/log";
 import axios from "axios";
 
 export const fetchData = async (

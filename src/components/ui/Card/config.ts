@@ -1,5 +1,3 @@
-import React from "react";
-
 export type CardProps = {
   image: string;
   category: string;

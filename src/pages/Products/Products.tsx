@@ -41,8 +41,6 @@ const Products = () => {
     shopStore.getProductsList(url);
   }, [searchQuery, searchValue, shopStore]);
 
-  log(shopStore.list);
-
   const handlePaginationClick = React.useCallback(
     (pageNumber: number) => {
       setCurrentPage(pageNumber);

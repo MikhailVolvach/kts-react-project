@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const handleClick = React.useCallback(() => {
     onClick?.(children);
-  }, [onClick]);
+  }, [children, onClick]);
   return (
     <button
       {...rest}
