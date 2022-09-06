@@ -20,6 +20,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
         {productsList.map((product: RequestDataModel) => (
           <Link key={product.id} to={`/products/${product.id}`}>
             <Card
+              key={product.id}
               image={product.image}
               title={product.title}
               description={product.description}

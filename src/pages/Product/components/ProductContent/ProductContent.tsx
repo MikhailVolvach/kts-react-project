@@ -25,22 +25,19 @@ const ProductContent: FC<ProductContentProps> = ({ className, callback }) => {
     let url = `https://fakestoreapi.com/products/${id}`;
     shopStore?.getProductsList(url);
     setFullText(shopStore?.list?.[0]?.description.length > 179);
-  }, [id, shopStore, setFullText, callback]);
+  }, [id, shopStore, setFullText]);
 
   const data = shopStore.list[0];
-
-  if (data?.category !== undefined && data?.category !== "") {
-    callback(data?.category);
-  }
-
-  // log(shopStore.list);
 
   return (
     <WithLoader
       loaderColor={Color.primaryInverted}
       loading={shopStore?.meta === Meta.loading}
     >
-      <div className={[className, s.content].join(" ")}>
+      <div
+        onLoad={() => callback(data?.category)}
+        className={[className, s.content].join(" ")}
+      >
         <div className={s.content__left}>
           <div className={s.content__image}>
             <img src={data?.image} alt={data?.title} />

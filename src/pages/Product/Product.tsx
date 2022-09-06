@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-
-import { log } from "@utils/log";
+import React, { useEffect, useState } from "react";
 
 import ProductContent from "./components/ProductContent";
 import ProductRelated from "./components/ProductRelated";
@@ -8,11 +6,10 @@ import styles from "./Product.module.scss";
 
 const Product = () => {
   const [category, setCategory] = useState("");
-  const getCategory = React.useCallback((category: string) => {
-    setCategory(category);
+  const getCategory = React.useCallback((cat: string) => {
+    setCategory(cat);
   }, []);
 
-  log("Cat", category);
   return (
     <div className={styles.product}>
       <ProductContent
