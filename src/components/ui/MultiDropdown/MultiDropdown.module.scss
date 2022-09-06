@@ -1,29 +1,28 @@
 @import "@styles/variables";
 
 .multidropdown {
-  color: inherit;
-  font-family: Roboto;
-  width: 190px;
-  filter: drop-shadow(0 4px 120px $shadow-color);
   cursor: pointer;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
+
   position: relative;
+  z-index: 1000;
 
-  &:not([disabled]):focus &__selected {
-    border-color: $main-color;
-  }
+  width: 190px;
 
-  &:disabled {
-    opacity: 0.7;
-  }
+  font-family: Roboto, serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: inherit;
+
+  filter: drop-shadow(0 4px 120px $shadow-color);
 
   &__selected {
     width: 100%;
     height: 84px;
+
     font-size: 18px;
     line-height: 16px;
+
     background-color: $screen-color;
     border: 1px solid transparent;
   }
@@ -33,20 +32,30 @@
     box-shadow: 0 4px 120px $shadow-color;
   }
 
-  &__options {
-    margin: 12px 0 0;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: $screen-color;
-  }
-
   &__selected,
   &__option {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &:not([disabled]):focus &__selected {
+    border-color: $main-color;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+  }
+
+  &__options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+
+    margin: 12px 0 0;
+
+    background-color: $screen-color;
   }
 
   &__option {

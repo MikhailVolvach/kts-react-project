@@ -1,7 +1,8 @@
 /* ----------ОБНУЛЕНИЕ------------ */
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
+
   border: 0;
 }
 
@@ -16,10 +17,7 @@
   outline: none;
 }
 
-a:focus,
-a:active {
-  outline: none;
-}
+
 
 nav,
 footer,
@@ -30,11 +28,12 @@ aside {
 
 html,
 body {
-  height: 100%;
   width: 100%;
-  font-family: EudoxusSans;
-  line-height: 1;
+  height: 100%;
+
+  font-family: EudoxusSans, serif;
   font-size: 14px;
+  line-height: 1;
   color: $text-color;
 }
 
@@ -54,13 +53,19 @@ button {
 
 button::-moz-focus-inner {
   padding: 0;
+
   border: 0;
 }
 
 a,
 a:visited,
-a:hover {
+a:hover{
   text-decoration: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
 }
 
 ul li {
@@ -68,9 +73,11 @@ ul li {
 }
 
 img {
-  vertical-align: top;
   max-width: 100%;
   max-height: 100%;
+
+  vertical-align: top;
+
   object-fit: cover;
 }
 
@@ -87,10 +94,10 @@ h6 {
 /* ------------------------------- */
 
 .container {
-  max-width: 1270px;
   width: 100%;
-  padding: 0 15px;
+  max-width: 1270px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
 h1,
@@ -142,13 +149,17 @@ p,
 
 .visually-hidden {
   position: absolute;
+  bottom: 0;
+
+  overflow: hidden;
+
   width: 1px;
   height: 1px;
   margin: -1px;
-  bottom: 0;
   padding: 0;
+
   white-space: nowrap;
-  clip-path: inset(100%);
+
   clip: rect(0 0 0 0);
-  overflow: hidden;
+  clip-path: inset(100%);
 }

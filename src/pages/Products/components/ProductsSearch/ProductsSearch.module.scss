@@ -2,18 +2,37 @@
 
 .search {
   &__container {
-    margin-top: 80px;
     display: flex;
     gap: 29px;
     align-items: flex-start;
+
+    margin-top: 80px;
   }
 
   &__input {
     position: relative;
+
     display: flex;
-    flex-basis: 1021px;
-    flex-shrink: 1;
-    flex-grow: 1;
+    flex: 1 1 1021px;
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      top: 50%;
+      left: 25px;
+      transform: translateY(-50%);
+
+      display: block;
+
+      width: 32px;
+      height: 32px;
+
+      background-image: url("../../../../assets/icons/search-icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
 
     & input {
       width: 100%;
@@ -22,25 +41,9 @@
 
     & button {
       position: absolute;
+      top: 50%;
       right: 28px;
-      top: 50%;
       transform: translateY(-50%);
-    }
-
-    &::before {
-      background-image: url(../../../../assets/icons/search-icon.svg);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      content: "";
-      display: block;
-      left: 25px;
-      position: absolute;
-      top: 50%;
-
-      transform: translateY(-50%);
-      width: 32px;
-      height: 32px;
     }
   }
 }

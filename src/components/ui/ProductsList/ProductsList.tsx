@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RequestData } from "@pages/Products";
+import { RequestDataModel } from "@models/Shop";
 import Card from "@ui/Card";
 import { Link } from "react-router-dom";
 
@@ -17,12 +17,13 @@ const ProductsList: React.FC<ProductsListProps> = ({
       <div className={s.list__header}>{title}</div>
 
       <div className={[s.list__products, s.products].join(" ")}>
-        {productsList.map((product: RequestData) => (
+        {productsList.map((product: RequestDataModel) => (
           <Link key={product.id} to={`/products/${product.id}`}>
             <Card
+              key={product.id}
               image={product.image}
               title={product.title}
-              subtitle={product.description}
+              description={product.description}
               category={product.category}
               price={product.price}
             />

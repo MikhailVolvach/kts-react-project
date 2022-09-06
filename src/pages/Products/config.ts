@@ -1,8 +1,8 @@
 export type RequestData = {
+  category: string;
+  description: string;
   id: number;
   image: string;
-  category: string;
-  title: string;
-  description: string;
   price: number;
+  title: string;
 };

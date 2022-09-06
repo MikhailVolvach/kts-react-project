@@ -1,10 +1,12 @@
 @import "@styles/variables";
 
 .list__size {
-  padding: 10px 16px;
-  border-radius: 20px;
-  background-color: $placeholder-color;
-  color: $main-color;
-  font-size: 16px;
   margin-left: 10px;
+  padding: 10px 16px;
+
+  font-size: 16px;
+  color: $main-color;
+
+  background-color: $placeholder-color;
+  border-radius: 20px;
 }

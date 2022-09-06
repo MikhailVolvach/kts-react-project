@@ -9,22 +9,25 @@
   }
 
   &__size {
-    padding: 10px 16px;
-    border-radius: 20px;
-    background-color: $placeholder-color;
-    color: $main-color;
-    font-size: 16px;
     margin-left: 10px;
+    padding: 10px 16px;
+
+    font-size: 16px;
+    color: $main-color;
+
+    background-color: $placeholder-color;
+    border-radius: 20px;
   }
 
   &__products {
-    color: inherit;
+    padding-bottom: 40px;
   }
 }
 
 .products {
-  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+
+  margin-top: 50px;
 }

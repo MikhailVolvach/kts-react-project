@@ -1,5 +1,6 @@
 import React from "react";
 
+import { routes } from "@configs/routes";
 import account from "@icons/account.svg";
 import cart from "@icons/cart.svg";
 import logo from "@img/logo.png";
@@ -19,10 +20,9 @@ const Header = () => {
       </Link>
       <nav className={classNames(styles.header__nav, styles.nav)}>
         <ul className={styles.nav__list}>
-          <HeaderItem link={"/products"} text={"Products"} />
-          <HeaderItem link={"/services"} text={"Services"} />
-          <HeaderItem link={"/article"} text={"Article"} />
-          <HeaderItem link={"/about"} text={"About Us"} />
+          {routes.map(({ path, text }, index) => (
+            <HeaderItem key={index} link={path} text={text} />
+          ))}
         </ul>
       </nav>
       <div className={styles.header__user}>
