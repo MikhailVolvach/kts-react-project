@@ -1,0 +1,44 @@
+.loader {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__circle {
+        border-radius: 50%;
+        border: 4.5px solid #ff0000;
+        border-right: 4.5px solid transparent;
+        width: 40px;
+        height: 40px;
+
+        &_size {
+            &-s {
+                width: 20px;
+                height: 20px;
+                border: 3px solid #ff0000;
+                border-right: 3px solid transparent;
+            }
+
+            &-l {
+                width: 60px;
+                height: 60px;
+                border: 6px solid #ff0000;
+                border-right: 6px solid transparent;
+            }
+        }
+
+        &--loading {
+            animation: rotation 1s linear infinite;
+        }
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(35deg);
+    }
+    100% {
+        transform: rotate(395deg);
+    }
+}

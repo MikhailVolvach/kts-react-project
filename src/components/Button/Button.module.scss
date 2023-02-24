@@ -1,0 +1,29 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF0000;
+  border-radius: 7px;
+  color: #ffffff;
+  font-family: 'Avenir', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  outline: none;
+  border: 0;
+  padding: 8px 14px;
+
+  &:not(:disabled):hover {
+    opacity: 0.5;
+  }
+
+  &_disabled,
+  &:disabled {
+    background-color: #D9D9D9;
+  }
+
+  .loader {
+    border-color: #ffffff;
+    border-right-color: transparent;
+    margin-right: 9px;
+  }
+}
