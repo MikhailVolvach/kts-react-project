@@ -2,8 +2,17 @@ import React from "react";
 
 import classNames from "classnames";
 
-import { CheckBoxProps } from "./";
 import styles from "./CheckBox.module.scss";
+
+export type CheckBoxProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> & {
+  disabled?: boolean;
+  checked?: boolean;
+  onChange: (value: boolean) => void;
+  text?: string;
+};
 
 const CheckBox: React.FC<CheckBoxProps> = ({
   onChange,
@@ -12,21 +21,11 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   text = "",
   ...props
 }) => {
-  if (disabled === undefined) {
-    disabled = false;
-  }
-  if (checked === undefined) {
-    checked = false;
-  }
-
-  const [status, setStatus] = React.useState(checked);
-
   const handleChange = () => {
     if (disabled) {
       return;
     }
-    setStatus(!status);
-    onChange(!status);
+    onChange(!checked);
   };
 
   return (
@@ -39,16 +38,15 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     >
       <input
         className={styles.checkbox__input}
-        disabled={disabled || false}
-        checked={status}
+        disabled={disabled}
+        checked={checked}
         onChange={handleChange}
         type="checkbox"
         {...props}
       />
       <span className={styles.checkbox__box}>
-        <span></span>
+        <span className={styles.checkbox__flag}></span>
       </span>
-      {/*{text}*/}
     </label>
   );
 };

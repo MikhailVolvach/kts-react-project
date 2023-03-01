@@ -4,8 +4,14 @@ import Loader from "@components/Loader";
 import { LoaderSize } from "@components/Loader";
 import classNames from "classnames";
 
-import { ButtonProps } from "./";
 import styles from "./Button.module.scss";
+
+export type ButtonProps = React.PropsWithChildren<{
+  loading?: boolean;
+  className?: string;
+}> &
+  React.ButtonHTMLAttributes<HTMLButtonElement>;
+
 const Button: React.FC<ButtonProps> = ({
   loading = false,
   children,

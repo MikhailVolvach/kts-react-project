@@ -1,16 +1,27 @@
 import React from "react";
 
-import { CardProps } from "./";
 import styles from "./Card.module.scss";
-import CardFooterComponent from "./components/CardFooterComponent/CardFooterComponent";
-import CardImageComponent from "./components/CardImageComponent/CardImageComponent";
-import CardInfoComponent from "./components/CardInfoComponent/CardInfoComponent";
+import CardFooterComponent from "./components/CardFooter/CardFooter";
+import CardImageComponent from "./components/CardImage/CardImage";
+import CardInfoComponent from "./components/CardInfo/CardInfo";
+
+// export type subtitleType = {};
+
+export type CardProps = {
+  image: string;
+  title: React.ReactNode;
+  subtitle: object[];
+  caloriesAmount: number;
+  caloriesUnit: string;
+  onClick?: React.MouseEventHandler;
+};
 
 const Card: React.FC<CardProps> = ({
   image,
   title,
   subtitle,
-  content,
+  caloriesAmount,
+  caloriesUnit,
   onClick,
 }) => {
   return (
@@ -21,7 +32,11 @@ const Card: React.FC<CardProps> = ({
         subtitle={subtitle}
         className={styles.card__info}
       />
-      <CardFooterComponent content={content} className={styles.card__footer} />
+      <CardFooterComponent
+        caloriesAmount={caloriesAmount}
+        caloriesUnit={caloriesUnit}
+        className={styles.card__footer}
+      />
     </div>
   );
 };

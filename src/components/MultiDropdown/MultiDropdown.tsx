@@ -1,10 +1,18 @@
 import React from "react";
 
+import { Option } from "@utils/types";
 import classNames from "classnames";
 
-import { MultiDropdownProps } from "./";
+import MultiDropdownOptions, {
+  MultiDropdownOptionsProps,
+} from "./components/MultiDropdownOptions";
 import styles from "./MultiDropdown.module.scss";
-import MultiDropdownOptions from "./MultiDropdownOptions";
+
+export type MultiDropdownProps = MultiDropdownOptionsProps & {
+  disabled?: boolean;
+  pluralizeOptions: (value: Option[]) => string;
+  className?: string;
+};
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
   options,
@@ -16,8 +24,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 }) => {
   const MultiDropdownClass = classNames(
     styles["multi-dropdown"],
+    styles["multi-dropdown_picked"] && value.length,
     styles["multi-dropdown_disabled"] && disabled,
-    styles["multi-dropdown_picked"] && value.length
+    className
   );
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);

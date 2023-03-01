@@ -1,0 +1,63 @@
+@mixin gradient($leftColor, $rightColor) {
+  background: linear-gradient(98.81deg, $leftColor -0.82%, $rightColor 101.53%);
+}
+
+@mixin widthHeight($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin topLeft($top, $left) {
+  top: $top;
+  left: $left;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-ac {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-as {
+  display: flex;
+  align-items: flex-start;
+}
+
+@mixin flex-ae {
+  display: flex;
+  align-items: flex-end;
+}
+
+@mixin flex-jsb {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flex-ac-jsb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin loaderSize($loaderSize, $borderSize, $color) {
+  @include widthHeight($loaderSize, $loaderSize);
+  border: $borderSize solid $color;
+  border-right: $borderSize solid transparent;
+}
+
+@mixin rounded {
+  border-radius: 50%;
+}
+
+@mixin fontParams($size, $letterSpacing, $weight, $lineHeight, $color) {
+  font-size: $size;
+  letter-spacing: $letterSpacing;
+  font-weight: $weight;
+  line-height: $lineHeight;
+  color: $color;
+}

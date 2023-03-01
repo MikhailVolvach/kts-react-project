@@ -2,8 +2,16 @@ import React, { ChangeEvent } from "react";
 
 import classNames from "classnames";
 
-import { InputProps } from "./";
 import styles from "./Input.module.scss";
+
+export type InputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> & {
+  value: string;
+  onChange: (value: string) => void;
+  className?: string;
+};
 
 const Input: React.FC<InputProps> = ({
   value,
@@ -18,10 +26,7 @@ const Input: React.FC<InputProps> = ({
     className
   );
 
-  const [newValue, setNewValue] = React.useState<string>(value);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewValue(e.target.value);
     onChange(e.target.value);
   };
 
@@ -30,7 +35,7 @@ const Input: React.FC<InputProps> = ({
       className={inputClass}
       onChange={handleChange}
       type="text"
-      value={value || newValue}
+      value={value}
       disabled={disabled}
       {...props}
     />

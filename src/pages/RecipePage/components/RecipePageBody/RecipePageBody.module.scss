@@ -1,0 +1,62 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.recipe__body {
+  background: $white;
+  position: relative;
+  border-radius: $standardRadius;
+  padding: 68px 16px 12px 36px;
+  margin-top: -10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    @include topLeft(18px, 50%);
+    transform: translate(-50%, 0);
+    display: block;
+    @include widthHeight(58px, 5px);
+    border-radius: 12px;
+    background: #ffcbcb;
+  }
+}
+
+.recipe__title {
+  margin-bottom: 16px;
+  @include fontParams(27px, 0, 500, 35px, #09051C);
+}
+
+.recipe__info {
+  display: flex;
+  margin-bottom: 27px;
+}
+
+.recipe__time {
+  margin-right: 30px;
+}
+
+.recipe__time,
+.recipe__rating {
+  @include fontParams(14px, 0.5px, 400, 19px, rgba(59, 59, 59, .3));
+  @include flex-ac;
+
+  & svg {
+    margin-right: 15px;
+  }
+}
+
+.recipe__description {
+  font-size: 12px;
+
+  & ul {
+    margin-bottom: 34px;
+  }
+
+  & li {
+    margin-left: 35px;
+  }
+
+  & h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+}

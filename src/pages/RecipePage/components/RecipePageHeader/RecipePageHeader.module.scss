@@ -1,0 +1,26 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.recipe__header {
+  top: 0;
+  left: 0;
+  @include topLeft(0, 0);
+}
+
+.recipe__image {
+  position: relative;
+  max-width: 100%;
+
+  & img {
+    @include widthHeight(100%, 100%);
+    object-fit: cover;
+  }
+}
+
+.recipe__button-back {
+  position: absolute;
+  @include topLeft(38px, 19px);
+  @include widthHeight(45px, 45px);
+  background: rgba(255, 0, 0, .1);
+  @include flex-center;
+}

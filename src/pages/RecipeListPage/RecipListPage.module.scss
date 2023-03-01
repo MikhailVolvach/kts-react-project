@@ -1,0 +1,19 @@
+// TODO: 1) Избавиться от !important
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.recipe {
+  &__loader {
+    @include widthHeight(100%, 100%);
+    background-color: $white;
+  }
+
+  & a {
+    text-decoration: none;
+  }
+  
+  &__container {
+    padding: 24px;
+  }
+}
+

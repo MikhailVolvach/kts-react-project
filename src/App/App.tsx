@@ -1,15 +1,13 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.scss";
 
-import Recipe from "../pages/Recipe/Recipe";
-import Recipes from "../pages/Recipes/Recipes";
+import Recipes from "@pages/RecipeListPage";
+import Recipe from "@pages/RecipePage";
 
 function App() {
-  const [isLoading, setIsLoading] = React.useState(false);
-
   return (
     <div className="App">
       <div className="App__container">
@@ -19,6 +17,7 @@ function App() {
             <Route path="/recipe">
               <Route path=":id" element={<Recipe />} />
             </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </div>

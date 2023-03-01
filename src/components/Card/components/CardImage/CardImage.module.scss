@@ -1,0 +1,9 @@
+.card__image {
+  margin-bottom: 5px;
+  max-width: 100%;
+
+  & img {
+    max-height: 87px;
+    border-radius: 5px;
+  }
+}
