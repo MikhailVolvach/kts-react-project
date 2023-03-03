@@ -38,10 +38,12 @@ const RecipePageBody: React.FC<RecipePageBodyProps> = ({
         </div>
       </div>
       <div className={styles.recipe__description}>
-        <h3>Ingredients</h3>
-        <ul>
+        <h3 className={styles["recipe__ingredients-title"]}>Ingredients</h3>
+        <ul className={styles["recipe__ingredients-list"]}>
           {extendedIngredients?.map((ingredient: any) => (
-            <li key={ingredient.id}>{ingredient.name}</li>
+            <li className={styles.recipe__ingredient} key={ingredient.id}>
+              {ingredient.name}
+            </li>
           ))}
         </ul>
         <div dangerouslySetInnerHTML={{ __html: instructions }} />

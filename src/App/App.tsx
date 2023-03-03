@@ -1,11 +1,10 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import "./App.scss";
 
 import Recipes from "@pages/RecipeListPage";
 import Recipe from "@pages/RecipePage";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (

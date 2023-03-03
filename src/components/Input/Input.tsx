@@ -8,18 +8,20 @@ export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange"
 > & {
-  value: string;
+  value?: string;
   onChange: (value: string) => void;
   className?: string;
 };
 
 const Input: React.FC<InputProps> = ({
-  value,
+  value = "",
   onChange,
   disabled,
   className,
   ...props
 }) => {
+  const [inputValue, setInputValue] = React.useState(value);
+
   const inputClass = classNames(
     styles.input,
     disabled && styles.input_disabled,
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
     onChange(e.target.value);
   };
 
@@ -35,7 +38,7 @@ const Input: React.FC<InputProps> = ({
       className={inputClass}
       onChange={handleChange}
       type="text"
-      value={value}
+      value={inputValue}
       disabled={disabled}
       {...props}
     />

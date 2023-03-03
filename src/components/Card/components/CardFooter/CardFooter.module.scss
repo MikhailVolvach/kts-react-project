@@ -20,7 +20,7 @@
     background-color: $red;
   }
 
-  & span {
+  & .card__add-button-part {
     display: block;
     @include widthHeight(12px, 1.5px);
     background-color: $white;

@@ -8,8 +8,8 @@ export type CardImageComponentProps = {
 
 const CardImage: React.FC<CardImageComponentProps> = ({ src, ...props }) => {
   return (
-    <div className={styles.card__image}>
-      <img src={src} {...props} alt="img" />
+    <div className={styles["card__image-wrapper"]}>
+      <img className={styles.card__image} src={src} {...props} alt="img" />
     </div>
   );
 };

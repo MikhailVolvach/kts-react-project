@@ -1,43 +1,49 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import styles from "./Card.module.scss";
 import CardFooterComponent from "./components/CardFooter/CardFooter";
 import CardImageComponent from "./components/CardImage/CardImage";
 import CardInfoComponent from "./components/CardInfo/CardInfo";
 
-// export type subtitleType = {};
-
 export type CardProps = {
-  image: string;
-  title: React.ReactNode;
-  subtitle: object[];
   caloriesAmount: number;
   caloriesUnit: string;
+  id: number;
+  image: string;
   onClick?: React.MouseEventHandler;
+  subtitle: Array<string>;
+  title: React.ReactNode;
+  type: string;
 };
 
 const Card: React.FC<CardProps> = ({
-  image,
-  title,
-  subtitle,
   caloriesAmount,
   caloriesUnit,
+  id,
+  image,
   onClick,
+  subtitle,
+  title,
+  type,
 }) => {
   return (
-    <div className={styles.card} onClick={onClick}>
-      <CardImageComponent src={image} />
-      <CardInfoComponent
-        title={title}
-        subtitle={subtitle}
-        className={styles.card__info}
-      />
-      <CardFooterComponent
-        caloriesAmount={caloriesAmount}
-        caloriesUnit={caloriesUnit}
-        className={styles.card__footer}
-      />
-    </div>
+    <Link to={`/${type}/${id}`} key={id}>
+      <div className={styles.card} onClick={onClick}>
+        <CardImageComponent src={image} />
+        <CardInfoComponent
+          title={title}
+          subtitle={subtitle}
+          className={styles.card__info}
+        />
+        <CardFooterComponent
+          caloriesAmount={caloriesAmount}
+          caloriesUnit={caloriesUnit}
+          className={styles.card__footer}
+        />
+      </div>
+    </Link>
   );
 };
 

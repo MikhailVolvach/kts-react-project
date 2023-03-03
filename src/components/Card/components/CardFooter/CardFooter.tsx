@@ -24,8 +24,8 @@ const CardFooter: React.FC<CardFooterComponentProps> = ({
         </div>
       )}
       <Button className={styles["card__add-button"]}>
-        <span></span>
-        <span></span>
+        <span className={styles["card__add-button-part"]}></span>
+        <span className={styles["card__add-button-part"]}></span>
       </Button>
     </div>
   );

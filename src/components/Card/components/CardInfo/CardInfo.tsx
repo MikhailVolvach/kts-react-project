@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Log } from "@utils/log";
 import classNames from "classnames";
 
 import styles from "./CardInfo.module.scss";
 
 export type CardInfoComponentProps = {
   title: React.ReactNode;
-  subtitle: object[];
+  subtitle: Array<string>;
   className?: string;
 };
 
@@ -16,8 +15,6 @@ const CardInfo: React.FC<CardInfoComponentProps> = ({
   subtitle,
   className = "",
 }) => {
-  Log(subtitle);
-
   const ingredientsFlag = subtitle.length > 3;
   const subtitleSliced = subtitle.slice(0, 3).join(" + ");
 

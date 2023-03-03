@@ -12,13 +12,19 @@ import classNames from "classnames";
 import styles from "./RecipeListPageHeader.module.scss";
 
 const RecipeListPageHeader = () => {
+  // const [inputValue, setInputValue] = React.useState("");
+
+  const handleInputChange = () => {
+    Log(10);
+  };
+
   return (
     <div className={styles.recipe__header}>
       <div className={classNames(styles.recipe__search, styles.search)}>
         <Input
           className={styles.search__input}
           value=""
-          onChange={() => Log(1)}
+          onChange={handleInputChange}
           placeholder="Search"
         />
         <Button

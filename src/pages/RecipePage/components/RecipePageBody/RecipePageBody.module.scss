@@ -47,11 +47,11 @@
 .recipe__description {
   font-size: 12px;
 
-  & ul {
+  & .recipe__ingredients-list {
     margin-bottom: 34px;
   }
 
-  & li {
+  & .recipe__ingredient {
     margin-left: 35px;
   }
 
