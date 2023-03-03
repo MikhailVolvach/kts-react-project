@@ -1,0 +1,14 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.recipe {
+  &__loader {
+    @include widthHeight(100%, 100%);
+    background-color: $white;
+  }
+
+  &__container {
+    padding: 24px;
+  }
+}
+

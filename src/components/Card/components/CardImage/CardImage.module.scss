@@ -1,0 +1,9 @@
+.card__image-wrapper {
+  margin-bottom: 5px;
+  max-width: 100%;
+
+  & .card__image {
+    max-height: 87px;
+    border-radius: 5px;
+  }
+}

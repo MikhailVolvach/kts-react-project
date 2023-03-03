@@ -1,0 +1,20 @@
+.recipe__header {
+  margin-bottom: 20px;
+}
+
+.recipe__search {
+  margin-bottom: 16px;
+}
+
+.search {
+  display: flex;
+
+  &__input {
+    margin-right: 8px;
+  }
+
+  &__button {
+    width: 36px;
+    padding: 8px 9px;
+  }
+}

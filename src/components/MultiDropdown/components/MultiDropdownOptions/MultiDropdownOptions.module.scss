@@ -1,0 +1,7 @@
+@import "@styles/variables.scss";
+
+.multi-dropdown__options {
+  margin-top: 4px;
+  background-color: $nonSelectedColor;
+  border-radius: $standardRadius;
+}

@@ -1,0 +1,6 @@
+@import "@styles/mixins.scss";
+
+.recipe__body {
+  @include flex-jsb;
+  flex-wrap: wrap;
+}

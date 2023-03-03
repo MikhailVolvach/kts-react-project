@@ -1,0 +1,30 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.multi-dropdown {
+  max-width: 367px;
+  width: 100%;
+  min-height: 36px;
+  @include fontParams(12px, 0.01em, 400, 16px, $black);
+
+  &_disabled {
+    & .multi-dropdown__selected {
+      background: $gradientGrey;
+    }
+  }
+
+  &_picked {
+    color: #000000;
+  }
+
+  &__selected {
+    background: $gradientPink;
+    border-radius: $standardRadius;
+    height: 36px;
+    @include flex-ac;
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

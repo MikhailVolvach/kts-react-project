@@ -1,0 +1,29 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.input {
+  max-width: 366px;
+  @include widthHeight(100%, 36px);
+  background: $gradientPink;
+  @include fontParams(12px, 0.01em, 400, 16px, #000000);
+  border-radius: $standardRadius;
+  padding: 10px;
+  border: 0;
+  outline: 0;
+
+  &::placeholder {
+    color: $darkGrey;
+    opacity: 0.5;
+  }
+
+  &:focus {
+    background: $gradientPinkFocused;
+    color: $white;
+  }
+
+  &_disabled {
+    background: $gradientGrey;
+    cursor: default;
+    color: $black;
+  }
+}

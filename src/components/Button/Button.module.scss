@@ -1,0 +1,26 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.button {
+  @include flex-center;
+  background-color: $red;
+  border-radius: $standardRadius;
+  @include fontParams(18px, 0, 500, 25px, $white);
+  outline: none;
+  border: 0;
+  padding: 8px 14px;
+
+  &:not(:disabled):hover {
+    opacity: 0.5;
+  }
+
+  &_disabled {
+    background-color: $disabledColor;
+  }
+
+  .loader {
+    border-color: $white;
+    border-right-color: transparent;
+    margin-right: 9px;
+  }
+}

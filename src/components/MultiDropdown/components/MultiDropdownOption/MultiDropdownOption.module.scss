@@ -1,0 +1,23 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.multi-dropdown__option {
+  height: 36px;
+  @include flex-ac;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:first-child {
+    border-radius: $standardRadius $standardRadius 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 $standardRadius $standardRadius;
+  }
+
+  &_selected {
+    background-color: $selectedColor;
+  }
+}

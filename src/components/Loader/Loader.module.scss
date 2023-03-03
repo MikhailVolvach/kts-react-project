@@ -1,0 +1,35 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.loader {
+    @include widthHeight(100%, 100vh);
+    @include flex-center;
+    animation: rotation 1s linear infinite;
+
+    &__circle {
+        @include rounded;
+
+        &_size {
+            &-s {
+                @include loaderSize(20px, 3px, $red);
+            }
+
+            &-m {
+                @include loaderSize(40px, 4.5px, $red);
+            }
+
+            &-l {
+                @include loaderSize(60px, 6px, $red);
+            }
+        }
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(35deg);
+    }
+    100% {
+        transform: rotate(395deg);
+    }
+}

@@ -1,0 +1,44 @@
+@import "@styles/mixins.scss";
+@import "@styles/variables.scss";
+
+.checkbox {
+
+  &_disabled {
+    & .checkbox__box {
+      background: $gradientGrey;
+    }
+
+    & .checkbox__input:checked + .checkbox__box .checkbox__flag {
+      border-left-color: $darkGrey;
+      border-bottom-color: $darkGrey;
+    }
+  }
+
+  &:active .checkbox__box,
+  &:hover .checkbox__box {
+    background: $gradientPinkHover;
+  }
+
+  &__input {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  &__box {
+    @include widthHeight(20px, 20px);
+    overflow: hidden;
+    border-radius: $standardRadius;
+    background: $gradientPink;
+    @include flex-center;
+  }
+
+  &__input:checked + .checkbox__box .checkbox__flag {
+    @include widthHeight(7.5px, 5px);
+    border-left: 2px solid $paleRed;
+    border-bottom: 2px solid $paleRed;
+    transform: rotate(-45deg);
+    margin-top: -1px;
+  }
+}
