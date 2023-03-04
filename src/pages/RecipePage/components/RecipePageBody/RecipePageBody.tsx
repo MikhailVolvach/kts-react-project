@@ -2,20 +2,15 @@ import React from "react";
 
 import { ReactComponent as ClockIcon } from "@svg/Clock.svg";
 import { ReactComponent as HeartIcon } from "@svg/Heart.svg";
+import { ingredientType } from "@utils/types";
 
 import styles from "./RecipePageBody.module.scss";
-
-export type ingredientsType = {
-  name: string;
-  id: number;
-  [key: string]: any;
-};
 
 export type RecipePageBodyProps = {
   title?: string;
   readyInMinutes?: number;
   aggregateLikes?: number;
-  extendedIngredients?: ingredientsType[];
+  extendedIngredients?: ingredientType[] | null;
   instructions?: string;
 };
 

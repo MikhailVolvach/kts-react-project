@@ -1,3 +1,5 @@
+// TODO: Проверить работу коллбека
+
 import React, { ChangeEvent } from "react";
 
 import classNames from "classnames";
@@ -9,7 +11,7 @@ export type InputProps = Omit<
   "onChange"
 > & {
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 };
 
@@ -20,7 +22,7 @@ const Input: React.FC<InputProps> = ({
   className,
   ...props
 }) => {
-  const [inputValue, setInputValue] = React.useState(value);
+  // const [inputValue, setInputValue] = React.useState(value);
 
   const inputClass = classNames(
     styles.input,
@@ -28,17 +30,24 @@ const Input: React.FC<InputProps> = ({
     className
   );
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    onChange(e.target.value);
-  };
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(e.target.value);
+  //   onChange(e.target.value);
+  // };
+
+  const handleChange = React.useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e);
+    },
+    [onChange]
+  );
 
   return (
     <input
       className={inputClass}
       onChange={handleChange}
       type="text"
-      value={inputValue}
+      value={value}
       disabled={disabled}
       {...props}
     />

@@ -1,3 +1,5 @@
+// TODO: Проверить работу коллбека
+
 import React from "react";
 
 import { Option } from "@utils/types";
@@ -18,7 +20,7 @@ const MultiDropdownOption: React.FC<MultiDropdownOptionProps> = ({
 }) => {
   const selected = value.some((val) => val.key === option.key);
 
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     if (!onChange) {
       return;
     }
@@ -27,7 +29,7 @@ const MultiDropdownOption: React.FC<MultiDropdownOptionProps> = ({
     } else {
       onChange([option]);
     }
-  };
+  }, [onChange, value, selected]);
 
   return (
     <div

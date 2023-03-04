@@ -13,9 +13,9 @@ export type RecipePageHeaderProps = {
 const RecipePageHeader: React.FC<RecipePageHeaderProps> = ({ image = "" }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     navigate(-1);
-  };
+  }, [navigate]);
 
   return (
     <div className={styles.recipe__header}>

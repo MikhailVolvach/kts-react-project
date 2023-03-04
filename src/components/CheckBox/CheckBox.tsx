@@ -1,3 +1,5 @@
+// TODO: Проверить работу коллбека
+
 import React from "react";
 
 import classNames from "classnames";
@@ -21,12 +23,12 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   text = "",
   ...props
 }) => {
-  const handleChange = () => {
+  const handleChange = React.useCallback(() => {
     if (disabled) {
       return;
     }
     onChange(!checked);
-  };
+  }, [disabled, onChange]);
 
   return (
     <label

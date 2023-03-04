@@ -1,4 +1,5 @@
 // TODO: 1) Исправить колбеки для поиска и дропдауна
+//       2) Проверить работу коллбека
 
 import React from "react";
 
@@ -8,30 +9,40 @@ import MultiDropdown from "@components/MultiDropdown/MultiDropdown";
 import { ReactComponent as SearchIcon } from "@svg/search.svg";
 import { Log } from "@utils/log";
 import classNames from "classnames";
+import { useSearchParams } from "react-router-dom";
 
 import styles from "./RecipeListPageHeader.module.scss";
 
-const RecipeListPageHeader = () => {
-  // const [inputValue, setInputValue] = React.useState("");
+export type RecipeListPageHeaderProps = {
+  onSearchButtonClick: (value: string) => void;
+};
 
-  const handleInputChange = () => {
-    Log(10);
-  };
+const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
+  onSearchButtonClick,
+}) => {
+  const [inputValue, setInputValue] = useSearchParams();
+
+  const handleInputChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue({ search: e.target.value });
+    },
+    [setInputValue]
+  );
+
+  const handleSearch = React.useCallback(() => {
+    onSearchButtonClick(inputValue.get("search") || "");
+  }, [onSearchButtonClick]);
 
   return (
     <div className={styles.recipe__header}>
       <div className={classNames(styles.recipe__search, styles.search)}>
         <Input
           className={styles.search__input}
-          value=""
+          value={inputValue.get("search") || ""}
           onChange={handleInputChange}
           placeholder="Search"
         />
-        <Button
-          className={styles.search__button}
-          onClick={() => Log(2)}
-          onMouseOver={() => Log(3)}
-        >
+        <Button className={styles.search__button} onClick={handleSearch}>
           <SearchIcon />
         </Button>
       </div>

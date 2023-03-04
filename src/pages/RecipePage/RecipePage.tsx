@@ -1,67 +1,39 @@
 import React from "react";
 
 import WithLoader from "@components/WithLoader";
-import axios from "axios";
+import RecipesStore from "@store/RecipesStore";
+import { Meta } from "@utils/meta";
+import { useLocalStore } from "@utils/useLocalStore";
+import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 
-import RecipePageBody, { ingredientsType } from "./components/RecipePageBody";
+import RecipePageBody from "./components/RecipePageBody";
 import RecipePageHeader from "./components/RecipePageHeader";
 import styles from "./RecipePage.module.scss";
 
-export type RecipeDataType = {
-  id: number;
-  image: string;
-  title: string;
-  readyInMinutes: number;
-  aggregateLikes: number;
-  extendedIngredients: Array<ingredientsType>;
-  instructions: string;
-};
-
 const RecipePage = () => {
-  const [recipeInfo, setRecipeInfo] = React.useState<RecipeDataType | null>(
-    null
-  );
-
-  const [isLoading, setIsLoading] = React.useState(false);
+  const recipePageStore = useLocalStore(() => new RecipesStore());
 
   const { id } = useParams();
 
   React.useEffect(() => {
-    const fetch = async () => {
-      setIsLoading(true);
-
-      const { data } = await axios.get(
-        `https://api.spoonacular.com/recipes/${id}/information?&apiKey=9cf15f974d3b4aac8c3cdf47e72525ad`
-      );
-
-      setRecipeInfo({
-        id: data.id,
-        image: data.image,
-        title: data.title,
-        readyInMinutes: data.readyInMinutes,
-        aggregateLikes: data.aggregateLikes,
-        extendedIngredients: data.extendedIngredients,
-        instructions: data.instructions,
-      });
-
-      setIsLoading(false);
-    };
-
-    fetch();
-  }, [id]);
+    recipePageStore.getRecipeList({
+      path: `${id}/information`,
+      queryParams: [],
+    });
+  }, [id, recipePageStore]);
 
   return (
     <div className={styles.recipe || "recipe"}>
-      <WithLoader loading={isLoading}>
+      <WithLoader loading={recipePageStore?.meta === Meta.loading}>
         <div className={styles.recipe__container || "recipe__container"}>
-          <RecipePageHeader image={recipeInfo?.image} />
+          <RecipePageHeader image={recipePageStore?.list[0]?.image} />
           <RecipePageBody
-            title={recipeInfo?.title}
-            readyInMinutes={recipeInfo?.readyInMinutes}
-            aggregateLikes={recipeInfo?.aggregateLikes}
-            extendedIngredients={recipeInfo?.extendedIngredients}
-            instructions={recipeInfo?.instructions}
+            title={recipePageStore?.list[0]?.title}
+            readyInMinutes={recipePageStore?.list[0]?.readyInMinutes}
+            aggregateLikes={recipePageStore?.list[0]?.aggregateLikes}
+            extendedIngredients={recipePageStore?.list[0]?.ingredients}
+            instructions={recipePageStore?.list[0]?.instructions}
           />
         </div>
       </WithLoader>
@@ -69,4 +41,4 @@ const RecipePage = () => {
   );
 };
 
-export default React.memo(RecipePage);
+export default observer(RecipePage);
