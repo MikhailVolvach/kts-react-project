@@ -14,7 +14,8 @@ import { useSearchParams } from "react-router-dom";
 import styles from "./RecipeListPageHeader.module.scss";
 
 export type RecipeListPageHeaderProps = {
-  onSearchButtonClick: (value: string) => void;
+  // onSearchButtonClick: (value: string) => void;
+  onSearchButtonClick: () => void;
 };
 
 const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
@@ -30,7 +31,8 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
   );
 
   const handleSearch = React.useCallback(() => {
-    onSearchButtonClick(inputValue.get("search") || "");
+    // onSearchButtonClick(inputValue.get("search") || "");
+    onSearchButtonClick();
   }, [onSearchButtonClick]);
 
   return (

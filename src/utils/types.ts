@@ -34,3 +34,13 @@ export type nutritionType = {
   nutrients: nutrientType[];
   ingredients: ingredientType[];
 };
+
+export type queryParamType = {
+  paramName: string;
+  paramValue: string | boolean | number | null;
+};
+
+export type recipeListParams = {
+  path: string;
+  queryParams: queryParamType[];
+};

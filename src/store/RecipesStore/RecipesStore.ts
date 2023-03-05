@@ -12,6 +12,7 @@ import {
 import rootStore from "@store/RootStore";
 import { Log } from "@utils/log";
 import { Meta } from "@utils/meta";
+import { recipeListParams } from "@utils/types";
 import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
@@ -26,11 +27,6 @@ import {
 
 type PrivateFields = "_list" | "_meta";
 
-type getRecipeListParams = {
-  path: string;
-  queryParams: string[];
-};
-
 export default class RecipesStore implements ILocalStore {
   private _list: CollectionModel<number, RecipeItemModel> = {
     order: [],
@@ -39,8 +35,8 @@ export default class RecipesStore implements ILocalStore {
   private _meta: Meta = Meta.initial;
 
   private readonly _address = "https://api.spoonacular.com/recipes";
-  private readonly _apiKey = "9cf15f974d3b4aac8c3cdf47e72525ad";
-  // private readonly _apiKey = "374b6b2cbf01429284a2a30b23f45f97";
+  // private readonly _apiKey = "9cf15f974d3b4aac8c3cdf47e72525ad";
+  private readonly _apiKey = "374b6b2cbf01429284a2a30b23f45f97";
 
   constructor() {
     makeObservable<RecipesStore, PrivateFields>(this, {
@@ -60,10 +56,7 @@ export default class RecipesStore implements ILocalStore {
     return this._meta;
   }
 
-  async getRecipeList({
-    path,
-    queryParams,
-  }: getRecipeListParams): Promise<void> {
+  async getRecipeList({ path, queryParams }: recipeListParams): Promise<void> {
     this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
 
@@ -72,15 +65,21 @@ export default class RecipesStore implements ILocalStore {
       "/" +
       path +
       "?" +
-      queryParams.join("&") +
+      queryParams
+        .filter(
+          (element) => element.paramValue !== null && element.paramValue !== ""
+        )
+        .map((element) => `${element.paramName}=${element.paramValue}`)
+        .join("&") +
       "&apiKey=" +
       this._apiKey;
+
+    Log(url);
 
     const response = await axios.get(url);
 
     runInAction(() => {
       if (response.status !== 200) {
-        Log("Request ERROR");
         this._meta = Meta.error;
       }
 
@@ -104,15 +103,15 @@ export default class RecipesStore implements ILocalStore {
     });
   }
 
+  // private readonly _qpReaction: IReactionDisposer = reaction(
+  //   () => rootStore.query.getParam("search"),
+  //   (search) => {
+  //     // Сюда попробовать запихнуть логику поиска
+  //     Log("search value change", search);
+  //   }
+  // );
+
   destroy(): void {
     // this._qpReaction();
   }
-
-  private readonly _qpReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam("search"),
-    (search) => {
-      // Сюда попробовать запихнуть логику поиска
-      Log("search value change", search);
-    }
-  );
 }
