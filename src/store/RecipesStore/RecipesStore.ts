@@ -9,7 +9,6 @@ import {
   linearizeCollection,
   normalizeCollection,
 } from "@store/models/shared/collection";
-import rootStore from "@store/RootStore";
 import { Log } from "@utils/log";
 import { Meta } from "@utils/meta";
 import { recipeListParams } from "@utils/types";
@@ -18,10 +17,8 @@ import axios from "axios";
 import {
   action,
   computed,
-  IReactionDisposer,
   makeObservable,
   observable,
-  reaction,
   runInAction,
 } from "mobx";
 
@@ -36,8 +33,10 @@ export default class RecipesStore implements ILocalStore {
 
   private readonly _address = "https://api.spoonacular.com/recipes";
   // private readonly _apiKey = "9cf15f974d3b4aac8c3cdf47e72525ad";
-  private readonly _apiKey = "374b6b2cbf01429284a2a30b23f45f97";
-
+  // private readonly _apiKey = "374b6b2cbf01429284a2a30b23f45f97";
+  // private readonly _apiKey = "64bb192a08e1463b929034337dd47399";
+  // private readonly _apiKey = "f0472bd4e95e46d09cf8ab093d8e0be8";
+  private readonly _apiKey = "de860f05419d43058e2ec87556ca4233";
   constructor() {
     makeObservable<RecipesStore, PrivateFields>(this, {
       _list: observable.ref,
