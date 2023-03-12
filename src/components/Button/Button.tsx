@@ -1,7 +1,7 @@
 import React from "react";
 
-import Loader from "@components/Loader";
-import { LoaderSize } from "@components/Loader";
+import Loader from "components/Loader";
+import { LoaderSize } from "components/Loader";
 import classNames from "classnames";
 
 import styles from "./Button.module.scss";
@@ -16,7 +16,6 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   children,
   onClick,
-  onMouseOver,
   disabled = false,
   className = "",
   ...ButtonProps
@@ -33,7 +32,6 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={buttonClass}
       onClick={onClick}
-      onMouseOver={onMouseOver}
       disabled={disabled}
       {...ButtonProps}
     >

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LoaderSize } from "@components/Loader/config";
+import { LoaderSize } from "components/Loader/config";
 import classNames from "classnames";
 
 import styles from "./Loader.module.scss";

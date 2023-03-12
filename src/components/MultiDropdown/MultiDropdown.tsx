@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Option } from "@utils/types";
+import { Option } from "utils/types";
 import classNames from "classnames";
 
 import MultiDropdownOptions, {
@@ -30,9 +30,10 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   );
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const handleClick = () => {
+
+  const handleClick = React.useCallback(() => {
     setIsVisible(!isVisible);
-  };
+  }, [setIsVisible]);
 
   return (
     <div className={MultiDropdownClass}>
