@@ -1,0 +1,38 @@
+@import "@styles/variables.scss";
+
+.pagination {
+  &__container {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  &__arrow {
+    &_next {
+      transform: rotateY(180deg);
+    }
+  }
+
+  &__arrow,
+  &__item {
+    margin-right: 5px;
+    background: $gradientPink;
+    border-color: transparent;
+    color: $red;
+  }
+
+  &__arrow:disabled {
+    color: $disabledColor;
+    stroke: $disabledColor;
+  }
+
+  &__item {
+    min-width: 38px;
+    padding: 10px;
+    margin-right: 5px;
+
+    &_active {
+      background-color: $gradientPinkHover;
+    }
+  }
+}

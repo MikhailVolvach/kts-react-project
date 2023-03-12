@@ -1,60 +1,83 @@
 import React from "react";
 
+import Pagination from "@components/Pagination/Pagination";
 import WithLoader from "@components/WithLoader";
-import { RecipeCardDataType } from "@utils/types";
-import axios from "axios";
+import RecipesStore from "@store/RecipesStore";
+import { Meta } from "@utils/meta";
+import { pagesArr } from "@utils/pagesArr";
+import { recipeListParams } from "@utils/types";
+import { useLocalStore } from "@utils/useLocalStore";
+import { observer } from "mobx-react-lite";
+import { useSearchParams } from "react-router-dom";
 
 import RecipeListPageBody from "./components/RecipeListPageBody";
 import RecipeListPageHeader from "./components/RecipeListPageHeader";
 import styles from "./RecipListPage.module.scss";
 
 const RecipeListPage = () => {
-  const [recipes, setRecipes] = React.useState<RecipeCardDataType[] | null>(
-    null
-  );
-  const [isLoading, setIsLoading] = React.useState(false);
+  const ELEMS_PER_PAGE = 6;
+
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const pageQuery = searchParams.get("page") || "";
+
+  const [currentPage, setCurrentPage] = React.useState(+pageQuery || 1);
+
+  const recipeListStore = useLocalStore(() => new RecipesStore());
+  const [requestOptions, setRequestOptions] = React.useState<recipeListParams>({
+    path: "complexSearch",
+    queryParams: [
+      { paramName: "addRecipeNutrition", paramValue: true },
+      { paramName: "query", paramValue: searchParams.get("search") },
+    ],
+  });
+
+  const handleSearch = React.useCallback(() => {
+    setRequestOptions({
+      path: requestOptions.path,
+      queryParams: [
+        { paramName: "addRecipeNutrition", paramValue: true },
+        { paramName: "query", paramValue: searchParams.get("search") },
+      ],
+    });
+  }, [searchParams]);
 
   React.useEffect(() => {
-    const fetch = async () => {
-      setIsLoading(true);
+    recipeListStore.getRecipeList(requestOptions);
+  }, [recipeListStore, requestOptions]);
 
-      const { data } = await axios.get(
-        "https://api.spoonacular.com/recipes/complexSearch?addRecipeNutrition=true&addRecipeNutrition=true&apiKey=9cf15f974d3b4aac8c3cdf47e72525ad"
-      );
-
-      setRecipes(
-        data.results.map(
-          (raw: {
-            id: number;
-            image: string;
-            title: string;
-            nutrition: { ingredients: any; nutrients: any[] };
-          }) => ({
-            id: raw.id,
-            image: raw.image,
-            title: raw.title,
-            ingredients: raw.nutrition.ingredients,
-            calories: raw.nutrition.nutrients[0],
-          })
-        )
-      );
-
-      setIsLoading(false);
-    };
-
-    fetch();
-  }, []);
+  const handlePaginationClick = React.useCallback(
+    (pageNumber: number) => {
+      setCurrentPage(pageNumber);
+      setSearchParams({ page: pageNumber.toString() });
+    },
+    [setSearchParams]
+  );
 
   return (
     <div className={styles.recipe}>
-      <WithLoader loading={isLoading} className={styles.recipe__loader}>
+      <WithLoader
+        loading={recipeListStore.meta === Meta.loading}
+        className={styles.recipe__loader}
+      >
         <div className={styles.recipe__container}>
-          <RecipeListPageHeader />
-          <RecipeListPageBody recipes={recipes} />
+          <RecipeListPageHeader onSearchButtonClick={handleSearch} />
+          <RecipeListPageBody
+            recipes={recipeListStore?.list.slice(
+              (currentPage - 1) * ELEMS_PER_PAGE,
+              currentPage * ELEMS_PER_PAGE
+            )}
+          />
+          {recipeListStore.list.length > ELEMS_PER_PAGE && (
+            <Pagination
+              callback={handlePaginationClick}
+              pagesArr={pagesArr(recipeListStore.list.length, ELEMS_PER_PAGE)}
+              currentPage={currentPage}
+            />
+          )}
         </div>
       </WithLoader>
     </div>
   );
 };
 
-export default React.memo(RecipeListPage);
+export default observer(RecipeListPage);

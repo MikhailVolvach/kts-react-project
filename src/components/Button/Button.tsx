@@ -9,6 +9,7 @@ import styles from "./Button.module.scss";
 export type ButtonProps = React.PropsWithChildren<{
   loading?: boolean;
   className?: string;
+  customValue?: number;
 }> &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -16,9 +17,9 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   children,
   onClick,
-  onMouseOver,
   disabled = false,
   className = "",
+  customValue = 0,
   ...ButtonProps
 }) => {
   if (loading) {
@@ -33,8 +34,8 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={buttonClass}
       onClick={onClick}
-      onMouseOver={onMouseOver}
       disabled={disabled}
+      value={customValue}
       {...ButtonProps}
     >
       {loading && <Loader loading={loading} size={LoaderSize.s} />}

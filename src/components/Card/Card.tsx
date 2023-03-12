@@ -8,23 +8,23 @@ import CardImageComponent from "./components/CardImage/CardImage";
 import CardInfoComponent from "./components/CardInfo/CardInfo";
 
 export type CardProps = {
-  caloriesAmount: number;
-  caloriesUnit: string;
+  caloriesAmount?: number;
+  caloriesUnit?: string;
   id: number;
   image: string;
   onClick?: React.MouseEventHandler;
-  subtitle: Array<string>;
+  subtitle?: Array<string>;
   title: React.ReactNode;
   type: string;
 };
 
 const Card: React.FC<CardProps> = ({
-  caloriesAmount,
-  caloriesUnit,
+  caloriesAmount = 0,
+  caloriesUnit = "",
   id,
   image,
   onClick,
-  subtitle,
+  subtitle = [""],
   title,
   type,
 }) => {

@@ -9,7 +9,7 @@
       "@img/*": ["src/assets/img/*"],
       "@svg/*": ["src/assets/svg/*"],
       "@pages/*": ["src/pages/*"],
-      "@config/": ["src/config/*"]
+      "@store/*": ["src/store/*"]
     }
   }
 }
