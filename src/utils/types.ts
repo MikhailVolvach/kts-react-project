@@ -1,15 +1,4 @@
-export type caloriesObject = {
-  amount: number;
-  unit: string;
-};
-
-export type RecipeCardDataType = {
-  id: number;
-  title: string;
-  image: string;
-  ingredients: object[];
-  calories: caloriesObject;
-};
+import * as qs from "qs";
 
 export type Option = {
   key: string;
@@ -36,11 +25,11 @@ export type nutritionType = {
 };
 
 export type queryParamType = {
-  paramName: string;
-  paramValue: string | boolean | number | null;
+  name: string;
+  value: undefined | string | string[] | qs.ParsedQs | qs.ParsedQs[];
 };
 
 export type recipeListParams = {
-  path: string;
-  queryParams: queryParamType[];
+  path: string | undefined;
+  queryParams: (queryParamType | null)[];
 };

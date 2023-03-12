@@ -1,5 +1,3 @@
-// TODO: Проверить работу коллбека
-
 import React from "react";
 
 import classNames from "classnames";

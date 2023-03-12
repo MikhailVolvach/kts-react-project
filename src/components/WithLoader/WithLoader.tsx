@@ -1,6 +1,6 @@
 import React from "react";
 
-import Loader from "@components/Loader";
+import Loader from "components/Loader";
 import classNames from "classnames";
 
 import styles from "./WithLoader.module.scss";

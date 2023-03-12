@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Option } from "@utils/types";
+import { Option } from "utils/types";
 
 import styles from "./MultiDropdownOptions.module.scss";
 import MultiDropdownOption from "../MultiDropdownOption";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "@components/Button";
+import Button from "components/Button";
 import classNames from "classnames";
 
 import styles from "./CardFooter.module.scss";

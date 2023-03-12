@@ -1,11 +1,11 @@
-@import "@styles/mixins.scss";
-@import "@styles/variables.scss";
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
 
 .App {
   max-width: 375px;
   @include widthHeight(100%, 100%);
   margin: 0 auto;
-  background: #ffffff url(../assets/svg/Pattern.svg) top right no-repeat;
+  background: #ffffff url(svg/Pattern.svg) top right no-repeat;
   border-radius: 10px;
   position: relative;
 }

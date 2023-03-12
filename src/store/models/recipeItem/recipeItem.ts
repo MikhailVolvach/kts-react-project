@@ -1,4 +1,4 @@
-import { ingredientType, nutrientType, nutritionType } from "@utils/types";
+import { ingredientType, nutrientType, nutritionType } from "utils/types";
 
 export type RecipeItemApi = {
   id: number;
@@ -6,6 +6,7 @@ export type RecipeItemApi = {
   title: string;
   nutrition?: nutritionType;
   extendedIngredients?: Array<ingredientType>;
+  totalResults?: number;
 };
 
 export type RecipeItemModel = {
@@ -17,6 +18,7 @@ export type RecipeItemModel = {
   readyInMinutes?: number;
   aggregateLikes?: number;
   instructions?: string;
+  totalResults?: number;
 };
 
 export const normalizeRecipeItem = (from: RecipeItemApi): RecipeItemModel => {

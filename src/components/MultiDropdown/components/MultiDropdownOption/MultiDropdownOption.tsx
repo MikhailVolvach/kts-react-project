@@ -1,8 +1,6 @@
-// TODO: Проверить работу коллбека
-
 import React from "react";
 
-import { Option } from "@utils/types";
+import { Option } from "utils/types";
 import classNames from "classnames";
 
 import styles from "./MultiDropdownOption.module.scss";

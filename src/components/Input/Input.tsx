@@ -1,8 +1,7 @@
-// TODO: Проверить работу коллбека
-
 import React, { ChangeEvent } from "react";
 
 import classNames from "classnames";
+import * as qs from "qs";
 
 import styles from "./Input.module.scss";
 
@@ -22,18 +21,11 @@ const Input: React.FC<InputProps> = ({
   className,
   ...props
 }) => {
-  // const [inputValue, setInputValue] = React.useState(value);
-
   const inputClass = classNames(
     styles.input,
     disabled && styles.input_disabled,
     className
   );
-
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(e.target.value);
-  //   onChange(e.target.value);
-  // };
 
   const handleChange = React.useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

@@ -2,13 +2,13 @@ import React from "react";
 
 import "./App.scss";
 
-import Recipes from "@pages/RecipeListPage";
-import Recipe from "@pages/RecipePage";
-// import { useQueryParamsStoreInit } from "@store/RootStore/hooks/useQueryParamsStoreInit";
+import Recipes from "pages/RecipeListPage";
+import Recipe from "pages/RecipePage";
+import { useQueryParamsStoreInit } from "store/RootStore/hooks/useQueryParamsStoreInit";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  // useQueryParamsStoreInit();
+  useQueryParamsStoreInit();
 
   return (
     <div className="App">

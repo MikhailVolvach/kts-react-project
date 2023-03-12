@@ -4,28 +4,34 @@ import * as qs from "qs";
 type PrivateFields = "_params";
 
 export default class QueryParamsStore {
+
   private _params: qs.ParsedQs = {};
   private _search: string = "";
+  private _page: string = "1";
 
   constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
-      setSearch: action,
+      getSearch: action,
+      getPage: action,
+      setParam: action,
     });
   }
 
-  getParam(
-    key: string
-  ): undefined | string | string[] | qs.ParsedQs | qs.ParsedQs[] {
-    return this._params[key];
+  getSearch() {
+    return this._params.search;
   }
 
-  setSearch(search: string) {
-    search = search.startsWith("?") ? search.slice(1) : search;
+  getPage() {
+    return this._params.page || this._page;
+  }
 
-    if (this._search !== search) {
-      this._search = search;
-      this._params = qs.parse(search);
+  setParam(param: string) {
+    param = param.startsWith("?") ? param.slice(1) : param;
+
+    if (this._search !== param) {
+      this._params = qs.parse(param);
+      this._search = param;
     }
   }
 }

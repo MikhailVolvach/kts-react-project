@@ -1,8 +1,8 @@
 import React from "react";
 
-import { ReactComponent as ClockIcon } from "@svg/Clock.svg";
-import { ReactComponent as HeartIcon } from "@svg/Heart.svg";
-import { ingredientType } from "@utils/types";
+import ClockIcon from "svg/Clock.svg";
+import HeartIcon from "svg/Heart.svg";
+import { ingredientType } from "utils/types";
 
 import styles from "./RecipePageBody.module.scss";
 
@@ -26,10 +26,10 @@ const RecipePageBody: React.FC<RecipePageBodyProps> = ({
       <h1 className={styles.recipe__title}>{title}</h1>
       <div className={styles.recipe__info}>
         <div className={styles.recipe__time}>
-          <ClockIcon /> {readyInMinutes} minutes
+          <img src={ClockIcon} alt=""/> {readyInMinutes} minutes
         </div>
         <div className={styles.recipe__rating}>
-          <HeartIcon /> {aggregateLikes} likes
+          <img src={HeartIcon} alt=""/> {aggregateLikes} likes
         </div>
       </div>
       <div className={styles.recipe__description}>

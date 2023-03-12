@@ -1,7 +1,7 @@
 import React from "react";
 
-import Card from "@components/Card/Card";
-import { RecipeItemModel } from "@store/models";
+import Card from "components/Card/Card";
+import { RecipeItemModel } from "store/models";
 
 import styles from "./RecipeListPageBody.module.scss";
 

@@ -1,18 +1,19 @@
 import React from "react";
 
-import WithLoader from "@components/WithLoader";
-import RecipesStore from "@store/RecipesStore";
-import { Meta } from "@utils/meta";
-import { useLocalStore } from "@utils/useLocalStore";
+import WithLoader from "components/WithLoader";
+import { Meta } from "utils/meta";
+import { useLocalStore } from "utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 
 import RecipePageBody from "./components/RecipePageBody";
 import RecipePageHeader from "./components/RecipePageHeader";
 import styles from "./RecipePage.module.scss";
+import RecipesStore from "store/RecipesStore";
 
 const RecipePage = () => {
   const recipePageStore = useLocalStore(() => new RecipesStore());
+
 
   const { id } = useParams();
 

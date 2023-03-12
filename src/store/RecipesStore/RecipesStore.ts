@@ -1,79 +1,65 @@
-import {
-  normalizeRecipeItem,
-  RecipeItemApi,
-  RecipeItemModel,
-} from "@store/models";
+import {normalizeRecipeItem, RecipeItemApi, RecipeItemModel} from "store/models";
 import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
-  normalizeCollection,
-} from "@store/models/shared/collection";
-import { Log } from "@utils/log";
-import { Meta } from "@utils/meta";
-import { recipeListParams } from "@utils/types";
-import { ILocalStore } from "@utils/useLocalStore";
+  normalizeCollection
+} from "store/models/shared/collection";
+import {Meta} from "utils/meta";
+import {ILocalStore} from "utils/useLocalStore";
+import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import axios from "axios";
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import {recipeListParams} from "utils/types";
 
-type PrivateFields = "_list" | "_meta";
+type PrivateFields = "_list" | "_meta" | "_numberOfItems";
 
 export default class RecipesStore implements ILocalStore {
-  private _list: CollectionModel<number, RecipeItemModel> = {
-    order: [],
-    entities: {},
-  };
-  private _meta: Meta = Meta.initial;
 
   private readonly _address = "https://api.spoonacular.com/recipes";
   // private readonly _apiKey = "9cf15f974d3b4aac8c3cdf47e72525ad";
   // private readonly _apiKey = "374b6b2cbf01429284a2a30b23f45f97";
   // private readonly _apiKey = "64bb192a08e1463b929034337dd47399";
   // private readonly _apiKey = "f0472bd4e95e46d09cf8ab093d8e0be8";
-  private readonly _apiKey = "de860f05419d43058e2ec87556ca4233";
+  // private readonly _apiKey = "de860f05419d43058e2ec87556ca4233";
+  private readonly _apiKey = "a8d1302245bf4f51a229a6210148e804";
   constructor() {
     makeObservable<RecipesStore, PrivateFields>(this, {
       _list: observable.ref,
       _meta: observable,
-      meta: computed,
+      _numberOfItems: observable,
       list: computed,
-      getRecipeList: action,
-    });
+      meta: computed,
+      numberOfItems: computed,
+      getRecipeList: action.bound
+    })
   }
 
-  get list(): RecipeItemModel[] {
-    return linearizeCollection(this._list);
-  }
+  private _list: CollectionModel<number, RecipeItemModel> = {
+    order: [],
+    entities: {},
+  };
+  private _meta: Meta = Meta.initial;
+  private _numberOfItems = 0;
 
-  get meta(): Meta {
-    return this._meta;
-  }
-
-  async getRecipeList({ path, queryParams }: recipeListParams): Promise<void> {
+  async getRecipeList(args: recipeListParams): Promise<void> {
     this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
+    this._numberOfItems = 0;
 
     const url =
       this._address +
       "/" +
-      path +
+      args.path +
       "?" +
-      queryParams
+      args.queryParams
         .filter(
-          (element) => element.paramValue !== null && element.paramValue !== ""
+          (element) => element !== null && element.value !== null && element.value !== "" && element.value !== undefined
         )
-        .map((element) => `${element.paramName}=${element.paramValue}`)
+        .map((element) => `${element?.name}=${element?.value}`)
         .join("&") +
       "&apiKey=" +
       this._apiKey;
 
-    Log(url);
 
     const response = await axios.get(url);
 
@@ -84,7 +70,8 @@ export default class RecipesStore implements ILocalStore {
 
       try {
         const list = [];
-        if (response.data.number > 1) {
+        if (response.data.totalResults) {
+          this._numberOfItems = response.data.totalResults;
           response.data.results.forEach((elem: RecipeItemApi) =>
             list.push(normalizeRecipeItem(elem))
           );
@@ -95,22 +82,24 @@ export default class RecipesStore implements ILocalStore {
         this._list = normalizeCollection(list, (listItem) => listItem.id);
         return;
       } catch (e) {
-        Log(e);
         this._meta = Meta.error;
         this._list = getInitialCollectionModel();
       }
     });
   }
 
-  // private readonly _qpReaction: IReactionDisposer = reaction(
-  //   () => rootStore.query.getParam("search"),
-  //   (search) => {
-  //     // Сюда попробовать запихнуть логику поиска
-  //     Log("search value change", search);
-  //   }
-  // );
+  get list(): RecipeItemModel[] {
+    return linearizeCollection(this._list);
+  }
+  get meta(): Meta {
+    return this._meta;
+  }
+
+  get numberOfItems(): number {
+    return this._numberOfItems;
+  }
 
   destroy(): void {
-    // this._qpReaction();
+    // Сброс реакций и других сторов
   }
 }

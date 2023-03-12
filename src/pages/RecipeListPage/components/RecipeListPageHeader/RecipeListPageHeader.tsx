@@ -1,38 +1,32 @@
-// TODO: 1) Исправить колбеки для поиска и дропдауна
-//       2) Проверить работу коллбека
-
 import React from "react";
 
-import Button from "@components/Button/Button";
-import Input from "@components/Input/Input";
-import MultiDropdown from "@components/MultiDropdown/MultiDropdown";
-import { ReactComponent as SearchIcon } from "@svg/search.svg";
-import { Log } from "@utils/log";
+import Button from "components/Button/Button";
+import Input from "components/Input/Input";
+import MultiDropdown from "components/MultiDropdown/MultiDropdown";
+import SearchIcon from "svg/search.svg";
+import { requestTypes } from "utils/requestTypes";
 import classNames from "classnames";
-import { useSearchParams } from "react-router-dom";
 
 import styles from "./RecipeListPageHeader.module.scss";
+import {useQueryParamsStore} from "store/RootStore/hooks/useQueryParamsStore";
 
 export type RecipeListPageHeaderProps = {
-  // onSearchButtonClick: (value: string) => void;
-  onSearchButtonClick: () => void;
+  onSearchButtonClick: (value: string) => void;
 };
 
 const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
   onSearchButtonClick,
 }) => {
-  const [inputValue, setInputValue] = useSearchParams();
-
+  const [inputValue, setInputValue] = useQueryParamsStore();
   const handleInputChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue({ search: e.target.value });
+      setInputValue(new URLSearchParams({"search": e.target.value}));
     },
-    [setInputValue]
+    [inputValue]
   );
 
   const handleSearch = React.useCallback(() => {
-    // onSearchButtonClick(inputValue.get("search") || "");
-    onSearchButtonClick();
+    onSearchButtonClick(inputValue.getSearch()?.toString() || "");
   }, [onSearchButtonClick]);
 
   return (
@@ -40,20 +34,20 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
       <div className={classNames(styles.recipe__search, styles.search)}>
         <Input
           className={styles.search__input}
-          value={inputValue.get("search") || ""}
+          value={inputValue.getSearch()?.toString()}
           onChange={handleInputChange}
           placeholder="Search"
         />
         <Button className={styles.search__button} onClick={handleSearch}>
-          <SearchIcon />
+          <img src={SearchIcon} alt=""/>
         </Button>
       </div>
       <MultiDropdown
         className={styles.recipe__categories}
-        options={[]}
+        options={requestTypes}
         value={[]}
         pluralizeOptions={() => "Pick categories"}
-        onChange={() => Log(5)}
+        onChange={() => {}}
       />
     </div>
   );

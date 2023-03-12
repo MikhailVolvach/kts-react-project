@@ -1,7 +1,7 @@
 import React from "react";
 
-import Button from "@components/Button/Button";
-import { ReactComponent as ArrowIcon } from "@svg/arrow-back.svg";
+import Button from "components/Button/Button";
+import ArrowIcon from "svg/arrow-back.svg";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./RecipePageHeader.module.scss";
@@ -23,7 +23,7 @@ const RecipePageHeader: React.FC<RecipePageHeaderProps> = ({ image = "" }) => {
         <img src={image} alt="" />
       </div>
       <Button className={styles["recipe__button-back"]} onClick={handleClick}>
-        <ArrowIcon />
+        <img src={ArrowIcon} alt=""/>
       </Button>
     </div>
   );
