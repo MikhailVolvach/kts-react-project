@@ -1,18 +1,18 @@
 .card {
-  max-width: 155px;
-  height: fit-content;
-  padding: 12px;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 8px rgb(0 0 0 / 12%);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
-  border-radius: 10px;
-  cursor: pointer;
+  height: fit-content;
   margin-bottom: 35px;
-  background: #ffffff;
+  max-width: 155px;
+  padding: 12px;
 
   &:hover {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
   }
 
   &__info,

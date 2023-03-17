@@ -1,30 +1,53 @@
-@import "styles/mixins.scss";
-@import "styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .multi-dropdown {
+
+  @include font-params(12px, 0.01em, 400, 16px, $black);
   max-width: 367px;
-  width: 100%;
   min-height: 36px;
-  @include fontParams(12px, 0.01em, 400, 16px, $black);
+  width: 100%;
+  cursor: pointer;
 
   &_disabled {
-    & .multi-dropdown__selected {
-      background: $gradientGrey;
+    .multi-dropdown__selected {
+      //& .multi-dropdown__selected {
+      background: $gradient-grey;
     }
   }
 
   &_picked {
-    color: #000000;
+    color: #000;
   }
 
   &__selected {
-    background: $gradientPink;
-    border-radius: $standardRadius;
-    height: 36px;
+
     @include flex-ac;
-    padding: 10px;
-    white-space: nowrap;
+    background: $gradient-pink;
+    border-radius: $standard-radius;
+    height: 36px;
     overflow: hidden;
+
+    padding: 10px;
     text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__options {
+
+    animation: appear 0.3s ease-in;
+    height: 0;
+    top: 0;
+    transition: all 0.3s ease-in;
   }
 }
+@keyframes appear {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 100%;
+  }
+}
+

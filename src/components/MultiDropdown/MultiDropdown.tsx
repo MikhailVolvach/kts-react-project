@@ -10,8 +10,8 @@ import styles from "./MultiDropdown.module.scss";
 
 export type MultiDropdownProps = MultiDropdownOptionsProps & {
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
   className?: string;
+  placeholder?: string;
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
@@ -19,32 +19,36 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   value,
   onChange,
   disabled = false,
-  pluralizeOptions,
+  placeholder = "Pick something",
   className,
 }) => {
   const MultiDropdownClass = classNames(
     styles["multi-dropdown"],
-    styles["multi-dropdown_picked"] && value.length,
+    styles["multi-dropdown_picked"] && value,
     styles["multi-dropdown_disabled"] && disabled,
     className
   );
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
+  const handleChange = React.useCallback((value: Option) => {
+    onChange(value);
+  }, []);
+
   const handleClick = React.useCallback(() => {
     setIsVisible(!isVisible);
-  }, [setIsVisible]);
+  }, [isVisible, setIsVisible]);
 
   return (
     <div className={MultiDropdownClass}>
       <div className={styles["multi-dropdown__selected"]} onClick={handleClick}>
-        {pluralizeOptions(value)}
+        {value ? value : placeholder}
       </div>
       {isVisible && !disabled && (
         <MultiDropdownOptions
           options={options}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
         />
       )}
     </div>

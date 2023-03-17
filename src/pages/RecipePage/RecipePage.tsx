@@ -8,33 +8,32 @@ import { useParams } from "react-router-dom";
 
 import RecipePageBody from "./components/RecipePageBody";
 import RecipePageHeader from "./components/RecipePageHeader";
-import styles from "./RecipePage.module.scss";
 import RecipesStore from "store/RecipesStore";
 
 const RecipePage = () => {
-  const recipePageStore = useLocalStore(() => new RecipesStore());
-
-
   const { id } = useParams();
+  const recipePageStore = useLocalStore(
+    () => new RecipesStore(`${id}/information`)
+  );
 
   React.useEffect(() => {
-    recipePageStore.getRecipeList({
-      path: `${id}/information`,
-      queryParams: [],
-    });
+    recipePageStore.getRecipeList([{
+      name: "includeNutrition", value: "true"
+    }]);
   }, [id, recipePageStore]);
 
+  console.log(recipePageStore.list);
+
   return (
-    <div className={styles.recipe || "recipe"}>
+    <div className={"recipe"}>
       <WithLoader loading={recipePageStore?.meta === Meta.loading}>
-        <div className={styles.recipe__container || "recipe__container"}>
+        <div className={"recipe__container"}>
           <RecipePageHeader image={recipePageStore?.list[0]?.image} />
           <RecipePageBody
             title={recipePageStore?.list[0]?.title}
             readyInMinutes={recipePageStore?.list[0]?.readyInMinutes}
             aggregateLikes={recipePageStore?.list[0]?.aggregateLikes}
-            extendedIngredients={recipePageStore?.list[0]?.ingredients}
-            instructions={recipePageStore?.list[0]?.instructions}
+            summary={recipePageStore?.list[0]?.summary}
           />
         </div>
       </WithLoader>

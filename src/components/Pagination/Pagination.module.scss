@@ -1,10 +1,10 @@
-@import "styles/variables.scss";
+@import "styles/variables";
 
 .pagination {
   &__container {
     display: flex;
-    width: fit-content;
     margin: 0 auto;
+    width: fit-content;
   }
 
   &__arrow {
@@ -15,24 +15,24 @@
 
   &__arrow,
   &__item {
-    margin-right: 5px;
-    background: $gradientPink;
+    background: $gradient-pink;
     border-color: transparent;
     color: $red;
+    margin-right: 5px;
   }
 
   &__arrow:disabled {
-    color: $disabledColor;
-    stroke: $disabledColor;
+    color: $disabled-color;
+    stroke: $disabled-color;
   }
 
   &__item {
+    margin-right: 5px;
     min-width: 38px;
     padding: 10px;
-    margin-right: 5px;
 
     &_active {
-      background-color: $gradientPinkHover;
+      background: $gradient-pink-hover;
     }
   }
 }

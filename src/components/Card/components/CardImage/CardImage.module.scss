@@ -2,8 +2,9 @@
   margin-bottom: 5px;
   max-width: 100%;
 
-  & .card__image {
-    max-height: 87px;
+  .card__image {
+    //& .card__image {
     border-radius: 5px;
+    max-height: 87px;
   }
 }

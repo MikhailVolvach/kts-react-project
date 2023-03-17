@@ -1,44 +1,47 @@
-@import "styles/mixins.scss";
-@import "styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .checkbox {
-
   &_disabled {
-    & .checkbox__box {
-      background: $gradientGrey;
+    .checkbox__box {
+      //& .checkbox__box {
+      background: $gradient-grey;
     }
 
-    & .checkbox__input:checked + .checkbox__box .checkbox__flag {
-      border-left-color: $darkGrey;
-      border-bottom-color: $darkGrey;
+    .checkbox__input:checked + .checkbox__box .checkbox__flag {
+      //& .checkbox__input:checked + .checkbox__box .checkbox__flag {
+      border-bottom-color: $dark-grey;
+      border-left-color: $dark-grey;
     }
   }
 
   &:active .checkbox__box,
   &:hover .checkbox__box {
-    background: $gradientPinkHover;
+    background: $gradient-pink-hover;
   }
 
   &__input {
-    position: absolute;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
+    appearance: none;
+    position: absolute;
   }
 
   &__box {
-    @include widthHeight(20px, 20px);
-    overflow: hidden;
-    border-radius: $standardRadius;
-    background: $gradientPink;
+    @include width-height(20px, 20px);
+
     @include flex-center;
+    background: $gradient-pink;
+    border-radius: $standard-radius;
+
+    overflow: hidden;
   }
 
   &__input:checked + .checkbox__box .checkbox__flag {
-    @include widthHeight(7.5px, 5px);
-    border-left: 2px solid $paleRed;
-    border-bottom: 2px solid $paleRed;
-    transform: rotate(-45deg);
+    @include width-height(7.5px, 5px);
+    border-bottom: 2px solid $pale-red;
+
+    border-left: 2px solid $pale-red;
     margin-top: -1px;
+    transform: rotate(-45deg);
   }
 }

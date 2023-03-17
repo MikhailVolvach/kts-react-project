@@ -1,4 +1,4 @@
-import 'regenerator-runtime';
+import "regenerator-runtime";
 
 import React from "react";
 
@@ -16,12 +16,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <App />
-      </BrowserRouter>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
 if (module.hot) {
-    module.hot.accept();
+  module.hot.accept();
 }

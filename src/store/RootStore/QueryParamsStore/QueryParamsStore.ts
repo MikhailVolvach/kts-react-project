@@ -1,32 +1,37 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import * as qs from "qs";
+import { ILocalStore } from "utils/useLocalStore";
 
 type PrivateFields = "_params";
 
-export default class QueryParamsStore {
-
+export default class QueryParamsStore implements ILocalStore {
   private _params: qs.ParsedQs = {};
   private _search: string = "";
-  private _page: string = "1";
 
   constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
-      getSearch: action,
-      getPage: action,
-      setParam: action,
+      page: computed,
+      search: computed,
+      type: computed,
+      params: computed,
+      setParams: action,
     });
   }
 
-  getSearch() {
-    return this._params.search;
+  get search() {
+    return this._params.search || "";
   }
 
-  getPage() {
-    return this._params.page || this._page;
+  get page() {
+    return this._params.page || 1;
   }
 
-  setParam(param: string) {
+  get type() {
+    return this._params.type || "";
+  }
+
+  setParams(param: string) {
     param = param.startsWith("?") ? param.slice(1) : param;
 
     if (this._search !== param) {
@@ -34,4 +39,10 @@ export default class QueryParamsStore {
       this._search = param;
     }
   }
+
+  get params() {
+    return this._params;
+  }
+
+  destroy(): void {}
 }

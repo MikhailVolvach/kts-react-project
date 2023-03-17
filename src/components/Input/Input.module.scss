@@ -1,29 +1,33 @@
-@import "styles/mixins.scss";
-@import "styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .input {
-  max-width: 366px;
-  @include widthHeight(100%, 36px);
-  background: $gradientPink;
-  @include fontParams(12px, 0.01em, 400, 16px, #000000);
-  border-radius: $standardRadius;
-  padding: 10px;
+
+  @include width-height(100%, 36px);
+
+  @include font-params(12px, 0.01em, 400, 16px, #000000);
+
+  background: $gradient-pink;
   border: 0;
+
+  border-radius: $standard-radius;
+  max-width: 366px;
   outline: 0;
+  padding: 10px;
 
   &::placeholder {
-    color: $darkGrey;
+    color: $dark-grey;
     opacity: 0.5;
   }
 
   &:focus {
-    background: $gradientPinkFocused;
+    background: $gradient-pink-focused;
     color: $white;
   }
 
   &_disabled {
-    background: $gradientGrey;
-    cursor: default;
+    background: $gradient-grey;
     color: $black;
+    cursor: default;
   }
 }

@@ -2,35 +2,35 @@
   background: linear-gradient(98.81deg, $leftColor -0.82%, $rightColor 101.53%);
 }
 
-@mixin widthHeight($width, $height) {
-  width: $width;
+@mixin width-height($width, $height) {
   height: $height;
+  width: $width;
 }
 
-@mixin topLeft($top, $left) {
-  top: $top;
+@mixin top-left($top, $left) {
   left: $left;
+  top: $top;
 }
 
 @mixin flex-center {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 @mixin flex-ac {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 @mixin flex-as {
-  display: flex;
   align-items: flex-start;
+  display: flex;
 }
 
 @mixin flex-ae {
-  display: flex;
   align-items: flex-end;
+  display: flex;
 }
 
 @mixin flex-jsb {
@@ -39,13 +39,14 @@
 }
 
 @mixin flex-ac-jsb {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
-@mixin loaderSize($loaderSize, $borderSize, $color) {
-  @include widthHeight($loaderSize, $loaderSize);
+@mixin loader-size($loaderSize, $borderSize, $color) {
+  @include width-height($loaderSize, $loaderSize);
+
   border: $borderSize solid $color;
   border-right: $borderSize solid transparent;
 }
@@ -54,10 +55,10 @@
   border-radius: 50%;
 }
 
-@mixin fontParams($size, $letterSpacing, $weight, $lineHeight, $color) {
-  font-size: $size;
-  letter-spacing: $letterSpacing;
-  font-weight: $weight;
-  line-height: $lineHeight;
+@mixin font-params($size, $letterSpacing, $weight, $lineHeight, $color) {
   color: $color;
+  font-size: $size;
+  font-weight: $weight;
+  letter-spacing: $letterSpacing;
+  line-height: $lineHeight;
 }

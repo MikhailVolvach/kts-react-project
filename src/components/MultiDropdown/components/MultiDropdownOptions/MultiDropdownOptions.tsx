@@ -6,9 +6,9 @@ import styles from "./MultiDropdownOptions.module.scss";
 import MultiDropdownOption from "../MultiDropdownOption";
 
 export type MultiDropdownOptionsProps = {
-  onChange: (value: Option[]) => void;
+  onChange: (value: Option) => void;
   options: Option[];
-  value: Option[];
+  value: string;
 };
 
 const MultiDropdownOptions: React.FC<MultiDropdownOptionsProps> = ({
@@ -17,14 +17,19 @@ const MultiDropdownOptions: React.FC<MultiDropdownOptionsProps> = ({
   onChange,
 }) => {
   return (
-    <div className={styles.multiDropdown__options}>
+    <div className={styles["multi-dropdown__options"]}>
       {options.map((option) => {
+        const selected = value === option.value;
+        const handleClick = React.useCallback((option: Option) => {
+          onChange(option);
+        }, []);
         return (
           <MultiDropdownOption
             key={option.key}
-            option={option}
-            onChange={onChange}
-            value={value}
+            keyOpt={option.key}
+            keyValue={option.value}
+            onChange={handleClick}
+            isSelected={selected}
           />
         );
       })}

@@ -1,13 +1,16 @@
-@import "styles/mixins.scss";
-@import "styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .button {
   @include flex-center;
+
+  @include font-params(18px, 0, 500, 25px, $white);
+
   background-color: $red;
-  border-radius: $standardRadius;
-  @include fontParams(18px, 0, 500, 25px, $white);
-  outline: none;
   border: 0;
+  border-radius: $standard-radius;
+
+  outline: none;
   padding: 8px 14px;
 
   &:not(:disabled):hover {
@@ -15,7 +18,7 @@
   }
 
   &_disabled {
-    background-color: $disabledColor;
+    background-color: $disabled-color;
   }
 
   .loader {

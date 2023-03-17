@@ -23,7 +23,7 @@ const RecipePageHeader: React.FC<RecipePageHeaderProps> = ({ image = "" }) => {
         <img src={image} alt="" />
       </div>
       <Button className={styles["recipe__button-back"]} onClick={handleClick}>
-        <img src={ArrowIcon} alt=""/>
+        <img src={ArrowIcon} alt="" />
       </Button>
     </div>
   );

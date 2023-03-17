@@ -1,6 +1,12 @@
-@import "styles/mixins.scss";
+@import "styles/mixins";
 
 .recipe__body {
+  @include flex-center;
+
+  flex-wrap: wrap;
+}
+
+.recipe-body__container {
   @include flex-jsb;
   flex-wrap: wrap;
 }

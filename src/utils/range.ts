@@ -8,4 +8,4 @@ export const range = (from: number, to: number, step = 1): number[] => {
   }
 
   return range;
-}
+};

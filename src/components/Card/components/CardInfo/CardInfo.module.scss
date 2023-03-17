@@ -1,20 +1,22 @@
-@import "styles/mixins.scss";
-@import "styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .card__info {
   margin-bottom: 5px;
 }
 
 .card__title {
-  @include fontParams(18px, -0.03em, 500, 25px, $black);
-  white-space: nowrap;
+  @include font-params(18px, -0.03em, 500, 25px, $black);
+  margin-bottom: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 5px;
+
+  white-space: nowrap;
 }
 
 .card__subtitle {
-  @include fontParams(12px, -0.03em, 400, 16px, $darkGrey);
+  @include font-params(12px, -0.03em, 400, 16px, $dark-grey);
+
   opacity: 0.5;
   text-transform: capitalize;
 }

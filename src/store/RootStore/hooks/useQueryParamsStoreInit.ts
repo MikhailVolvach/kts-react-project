@@ -4,5 +4,5 @@ import rootStore from "../instance";
 
 export const useQueryParamsStoreInit = (): void => {
   const { search } = Router.useLocation();
-  rootStore.query.setParam(search);
+  rootStore.query.setParams(search);
 };

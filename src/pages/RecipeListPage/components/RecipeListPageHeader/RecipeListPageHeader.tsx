@@ -3,51 +3,60 @@ import React from "react";
 import Button from "components/Button/Button";
 import Input from "components/Input/Input";
 import MultiDropdown from "components/MultiDropdown/MultiDropdown";
-import SearchIcon from "svg/search.svg";
 import { requestTypes } from "utils/requestTypes";
 import classNames from "classnames";
 
 import styles from "./RecipeListPageHeader.module.scss";
-import {useQueryParamsStore} from "store/RootStore/hooks/useQueryParamsStore";
+import { Option } from "utils/types";
 
 export type RecipeListPageHeaderProps = {
   onSearchButtonClick: (value: string) => void;
+  searchValue: string;
+  onTypeChange: (value: string) => void;
+  typeValue: string;
 };
 
 const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
   onSearchButtonClick,
+  searchValue,
+  onTypeChange, typeValue
 }) => {
-  const [inputValue, setInputValue] = useQueryParamsStore();
+  const [inputValue, setInputValue] = React.useState<string>(searchValue);
+
   const handleInputChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(new URLSearchParams({"search": e.target.value}));
+      setInputValue(e.target.value);
     },
-    [inputValue]
+    []
   );
 
   const handleSearch = React.useCallback(() => {
-    onSearchButtonClick(inputValue.getSearch()?.toString() || "");
-  }, [onSearchButtonClick]);
+    onSearchButtonClick(inputValue);
+  }, [inputValue, onSearchButtonClick]);
+
+  const handleDropdownClick = React.useCallback(
+    (option: Option) => {
+        onTypeChange(option.value);
+    },
+    [typeValue]
+  );
 
   return (
     <div className={styles.recipe__header}>
       <div className={classNames(styles.recipe__search, styles.search)}>
         <Input
           className={styles.search__input}
-          value={inputValue.getSearch()?.toString()}
-          onChange={handleInputChange}
+          value={inputValue}
+          onChange={(e) => handleInputChange(e)}
           placeholder="Search"
         />
-        <Button className={styles.search__button} onClick={handleSearch}>
-          <img src={SearchIcon} alt=""/>
-        </Button>
+        <Button className={styles.search__button} onClick={handleSearch} />
       </div>
       <MultiDropdown
         className={styles.recipe__categories}
         options={requestTypes}
-        value={[]}
-        pluralizeOptions={() => "Pick categories"}
-        onChange={() => {}}
+        value={typeValue}
+        onChange={handleDropdownClick}
       />
     </div>
   );
