@@ -1,6 +1,5 @@
 import {
   normalizeRecipeItem,
-  RecipeItemApi,
   RecipeItemModel,
 } from "store/models";
 import {
@@ -23,29 +22,38 @@ import { queryParamType } from "utils/types";
 import {projectConfig} from "config/projectConfig";
 import qs from "qs";
 
-type PrivateFields = "_list" | "_meta" | "_numberOfItems";
+type PrivateFields = "_list" | "_meta" | "_numberOfItems" | "_offset" | "_currentPage";
 
 export default class RecipesListPageStore implements ILocalStore {
-  private readonly _address = projectConfig.ADDRESS;
-  private readonly _apiKey = projectConfig.API_KEY;
-
-  private readonly _path: string = "";
-
-  constructor(path: string) {
+  constructor(path: string, currentPage: number) {
     makeObservable<RecipesListPageStore, PrivateFields>(this, {
       _list: observable.ref,
       _meta: observable,
       _numberOfItems: observable,
+      _currentPage: observable,
+      _offset: observable,
       list: computed,
       meta: computed,
       numberOfItems: computed,
       getRecipeList: action.bound,
+      currentPage: computed,
+      offset: computed,
+      setOffset: action
     });
 
     if (path !== this._path) {
       this._path = path;
     }
+    if (currentPage !== this._currentPage) {
+      this._currentPage = currentPage;
+    }
   }
+
+  private readonly _address = projectConfig.ADDRESS;
+  private readonly _apiKey = projectConfig.API_KEY;
+  private readonly _path: string = "";
+  private readonly _currentPage: number = 1;
+  private _offset: number = 0;
 
   private _list: CollectionModel<number, RecipeItemModel> = {
     order: [],
@@ -55,18 +63,26 @@ export default class RecipesListPageStore implements ILocalStore {
   private _numberOfItems = 0;
 
   async getRecipeList(
-    queryParams: (queryParamType | null)[] = []
+    searchValue: string, typeValue: string
   ): Promise<void> {
     this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
     this._numberOfItems = 0;
+
+    const query: (queryParamType | null)[] = [
+      { name: "addRecipeNutrition", value: "true" },
+      { name: "query", value: searchValue },
+      { name: "offset", value: `${this._offset}` },
+      { name: "number", value: `${projectConfig.ELEMS_PER_PAGE}` },
+      { name: "type", value: typeValue }
+    ]
 
     const url =
       this._address +
       "/" +
       this._path +
       "?" +
-      qs.stringify(queryParams) +
+      qs.stringify(query) +
       "&apiKey=" +
       this._apiKey;
 
@@ -99,6 +115,18 @@ export default class RecipesListPageStore implements ILocalStore {
 
   get numberOfItems(): number {
     return this._numberOfItems;
+  }
+
+  get currentPage(): number {
+    return this._currentPage;
+  }
+
+  get offset(): number {
+    return this._offset;
+  }
+
+  setOffset(newOffset: number) {
+    this._offset = newOffset;
   }
 
   destroy(): void {}

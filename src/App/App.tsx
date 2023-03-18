@@ -6,7 +6,6 @@ import Recipes from "pages/RecipeListPage";
 import Recipe from "pages/RecipePage";
 import { useQueryParamsStoreInit } from "store/RootStore/hooks/useQueryParamsStoreInit";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { observer } from "mobx-react-lite";
 
 function App() {
   useQueryParamsStoreInit();

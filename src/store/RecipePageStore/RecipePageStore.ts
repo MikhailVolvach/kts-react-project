@@ -19,7 +19,6 @@ import {
   runInAction,
 } from "mobx";
 import axios from "axios";
-import { queryParamType } from "utils/types";
 import {projectConfig} from "config/projectConfig";
 import qs from "qs";
 
@@ -54,19 +53,21 @@ export default class RecipePageStore implements ILocalStore {
   private _meta: Meta = Meta.initial;
   private _numberOfItems = 0;
 
-  async getRecipeList(
-    queryParams: (queryParamType | null)[] = []
-  ): Promise<void> {
+  async getRecipeList(): Promise<void> {
     this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
     this._numberOfItems = 0;
+
+    const query = [{
+      name: "includeNutrition", value: "true"
+    }]
 
     const url =
       this._address +
       "/" +
       this._path +
       "?" +
-      qs.stringify(queryParams) +
+      qs.stringify(query) +
       "&apiKey=" +
       this._apiKey;
 

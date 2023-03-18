@@ -11,6 +11,7 @@ import { observer } from "mobx-react-lite";
 import Pagination from "components/Pagination/Pagination";
 import { useQueryParamsStore } from "store/RootStore/hooks/useQueryParamsStore";
 import classNames from "classnames";
+import {projectConfig} from "config/projectConfig";
 
 export type RecipeListPageBodyProps = {
   searchValue: string;
@@ -21,22 +22,15 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
   searchValue,
   typeValue
 }) => {
-  const ELEMS_PER_PAGE = 6;
 
   const currentPageStore = useLocalStore(
-    () => new RecipesListPageStore("complexSearch")
+    () => new RecipesListPageStore("complexSearch", +searchParams.page)
   );
   const [searchParams, setSearchParams] = useQueryParamsStore();
 
-  const currentPage = +searchParams.page;
-
-  const [offset, setOffset] = React.useState(
-    (currentPage - 1) * ELEMS_PER_PAGE
-  );
-
   const handlePaginationClick = React.useCallback(
     (pageNumber: number) => {
-      setOffset(ELEMS_PER_PAGE * (pageNumber - 1));
+      currentPageStore.setOffset(projectConfig.ELEMS_PER_PAGE * (pageNumber - 1));
       setSearchParams(
         new URLSearchParams([
           ["search", `${searchValue}`],
@@ -45,18 +39,12 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
         ])
       );
     },
-    [searchParams, offset]
+    [searchParams, currentPageStore.offset, searchValue]
   );
 
   React.useEffect(() => {
-    currentPageStore.getRecipeList([
-      { name: "addRecipeNutrition", value: "true" },
-      { name: "query", value: searchValue },
-      { name: "offset", value: `${offset}` },
-      { name: "number", value: `${ELEMS_PER_PAGE}` },
-      { name: "type", value: typeValue }
-    ]);
-  }, [currentPageStore, offset, searchValue, typeValue]);
+    currentPageStore.getRecipeList(searchValue, typeValue);
+  }, [currentPageStore, currentPageStore.offset, searchValue, typeValue]);
 
   return (
     <div className={classNames(styles.recipe__body, "recipe-body")}>
@@ -84,9 +72,9 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
             <Pagination
                 callback={handlePaginationClick}
                 totalPages={Math.ceil(
-                  currentPageStore.numberOfItems / ELEMS_PER_PAGE
+                  currentPageStore.numberOfItems / projectConfig.ELEMS_PER_PAGE
                 )}
-                currentPage={currentPage}
+                currentPage={currentPageStore.currentPage}
             />}
 
       </WithLoader>

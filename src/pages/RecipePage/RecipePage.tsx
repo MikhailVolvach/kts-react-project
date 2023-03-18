@@ -17,12 +17,8 @@ const RecipePage = () => {
   );
 
   React.useEffect(() => {
-    recipePageStore.getRecipeList([{
-      name: "includeNutrition", value: "true"
-    }]);
+    recipePageStore.getRecipeList();
   }, [id, recipePageStore]);
-
-  console.log(recipePageStore.list);
 
   return (
     <div className={"recipe"}>

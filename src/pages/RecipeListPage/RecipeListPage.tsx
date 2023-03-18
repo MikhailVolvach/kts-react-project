@@ -17,7 +17,7 @@ const RecipeListPage = () => {
   );
 
   const handleTypeChange = React.useCallback((type: string) => {
-    setSearchValue(new URLSearchParams([["search", `${searchValue.search}`], ["type", `${type}`], ["page", `1`]]))
+    setSearchValue(new URLSearchParams([["search", `${searchValue.search}`], ["type", `${type}`], ["page", "1"]]))
   }, []);
 
   return (

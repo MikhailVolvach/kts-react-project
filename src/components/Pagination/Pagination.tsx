@@ -85,6 +85,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 style.pagination__item,
                 currentPage === page && style.pagination__item_active
               )}
+              // TODO: Попробовать пробросить в дата аттрибут номер страницы, чтобы было проще и правильнее обрабатывать клик по кнопке
             >
               {page}
             </Button>
