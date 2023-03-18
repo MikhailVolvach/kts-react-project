@@ -25,14 +25,14 @@ import qs from "qs";
 
 type PrivateFields = "_list" | "_meta" | "_numberOfItems";
 
-export default class RecipesStore implements ILocalStore {
+export default class RecipesListPageStore implements ILocalStore {
   private readonly _address = projectConfig.ADDRESS;
   private readonly _apiKey = projectConfig.API_KEY;
 
   private readonly _path: string = "";
 
   constructor(path: string) {
-    makeObservable<RecipesStore, PrivateFields>(this, {
+    makeObservable<RecipesListPageStore, PrivateFields>(this, {
       _list: observable.ref,
       _meta: observable,
       _numberOfItems: observable,
@@ -69,17 +69,6 @@ export default class RecipesStore implements ILocalStore {
       qs.stringify(queryParams) +
       "&apiKey=" +
       this._apiKey;
-      // queryParams
-      //   .filter(
-      //     (element) =>
-      //       element !== null &&
-      //       element.value !== null &&
-      //       element.value !== "" &&
-      //       typeof element.value !== undefined
-      //   )
-      //   .map((element) => `${element?.name}=${element?.value}`)
-      //   .join("&") +
-
 
     const response = await axios.get(url);
 
@@ -90,14 +79,7 @@ export default class RecipesStore implements ILocalStore {
 
       try {
         const list = [];
-        if (response.data.totalResults) {
-          this._numberOfItems = response.data.totalResults;
-          response.data.results.forEach((elem: RecipeItemApi) =>
-            list.push(normalizeRecipeItem(elem))
-          );
-        } else {
-          list.push(normalizeRecipeItem(response.data));
-        }
+        list.push(normalizeRecipeItem(response.data));
         this._meta = Meta.success;
         this._list = normalizeCollection(list, (listItem) => listItem.id);
         return;

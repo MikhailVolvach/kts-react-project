@@ -8,12 +8,12 @@ import { useParams } from "react-router-dom";
 
 import RecipePageBody from "./components/RecipePageBody";
 import RecipePageHeader from "./components/RecipePageHeader";
-import RecipesStore from "store/RecipesStore";
+import RecipePageStore from "store/RecipePageStore";
 
 const RecipePage = () => {
   const { id } = useParams();
   const recipePageStore = useLocalStore(
-    () => new RecipesStore(`${id}/information`)
+    () => new RecipePageStore(`${id}/information`)
   );
 
   React.useEffect(() => {

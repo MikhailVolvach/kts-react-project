@@ -4,7 +4,7 @@ import Card from "components/Card/Card";
 
 import styles from "./RecipeListPageBody.module.scss";
 import { useLocalStore } from "utils/useLocalStore";
-import RecipesStore from "store/RecipesStore";
+import RecipesListPageStore from "store/RecipesListPageStore";
 import { Meta } from "utils/meta";
 import WithLoader from "components/WithLoader";
 import { observer } from "mobx-react-lite";
@@ -24,7 +24,7 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
   const ELEMS_PER_PAGE = 6;
 
   const currentPageStore = useLocalStore(
-    () => new RecipesStore("complexSearch")
+    () => new RecipesListPageStore("complexSearch")
   );
   const [searchParams, setSearchParams] = useQueryParamsStore();
 
