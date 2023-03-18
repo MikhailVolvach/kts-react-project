@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from "react";
 
 import classNames from "classnames";
-import * as qs from "qs";
 
 import styles from "./Input.module.scss";
 

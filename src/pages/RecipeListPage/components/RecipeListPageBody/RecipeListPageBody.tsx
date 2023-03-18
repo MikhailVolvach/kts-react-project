@@ -63,7 +63,7 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
       <WithLoader
         loading={currentPageStore.meta === Meta.loading}
         className={styles.recipe__loader}
-      >
+      > {currentPageStore.numberOfItems ?
         <div className={styles["recipe-body__container"]}>
           {currentPageStore.list?.map((recipe) => (
             <Card
@@ -79,15 +79,16 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
               caloriesUnit={recipe.calories?.unit}
             />
           ))}
-        </div>
+        </div> : <p className={styles["recipe-body__not-found-text"]}>Ничего не найдено</p>}
+        {currentPageStore.numberOfItems &&
+            <Pagination
+                callback={handlePaginationClick}
+                totalPages={Math.ceil(
+                  currentPageStore.numberOfItems / ELEMS_PER_PAGE
+                )}
+                currentPage={currentPage}
+            />}
 
-        <Pagination
-          callback={handlePaginationClick}
-          totalPages={Math.ceil(
-            currentPageStore.numberOfItems / ELEMS_PER_PAGE
-          )}
-          currentPage={currentPage}
-        />
       </WithLoader>
     </div>
   );
