@@ -1,146 +1,127 @@
+import axios from "axios";
+import { projectConfig } from "config/projectConfig";
+import { action, computed, makeObservable, observable, runInAction } from "mobx";
+import qs from "qs";
+import { normalizeRecipeItem, RecipeItemApi, RecipeItemModel } from "store/models";
 import {
-  normalizeRecipeItem, RecipeItemApi,
-  RecipeItemModel,
-} from "store/models";
-import {
-  CollectionModel,
-  getInitialCollectionModel,
-  linearizeCollection,
-  normalizeCollection,
+    CollectionModel,
+    getInitialCollectionModel,
+    linearizeCollection,
+    normalizeCollection,
 } from "store/models/shared/collection";
 import { Meta } from "utils/meta";
-import { ILocalStore } from "utils/useLocalStore";
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
-import axios from "axios";
 import { queryParamType } from "utils/types";
-import {projectConfig} from "config/projectConfig";
-import qs from "qs";
+import { ILocalStore } from "utils/useLocalStore";
 
 type PrivateFields = "_list" | "_meta" | "_numberOfItems" | "_offset" | "_currentPage";
 
 export default class RecipesListPageStore implements ILocalStore {
-  constructor(path: string, currentPage: number) {
-    makeObservable<RecipesListPageStore, PrivateFields>(this, {
-      _list: observable.ref,
-      _meta: observable,
-      _numberOfItems: observable,
-      _currentPage: observable,
-      _offset: observable,
+    constructor(path: string, currentPage: number) {
+        makeObservable<RecipesListPageStore, PrivateFields>(this, {
+            _list: observable.ref,
+            _meta: observable,
+            _numberOfItems: observable,
+            _currentPage: observable,
+            _offset: observable,
 
-      list: computed,
-      meta: computed,
-      numberOfItems: computed,
-      getRecipeList: action.bound,
-      currentPage: computed,
-      offset: computed,
-      setOffset: action
-    });
+            list: computed,
+            meta: computed,
+            numberOfItems: computed,
+            getRecipeList: action.bound,
+            currentPage: computed,
+            offset: computed,
+            setOffset: action,
+        });
 
-    if (path !== this._path) {
-      this._path = path;
+        if (path !== this._path) {
+            this._path = path;
+        }
+        if (currentPage !== this._currentPage) {
+            this._currentPage = currentPage;
+        }
+
+        console.log(this._path, this._currentPage);
     }
-    if (currentPage !== this._currentPage) {
-      this._currentPage = currentPage;
-    }
 
-    console.log(this._path, this._currentPage);
-  }
+    private readonly _address = projectConfig.ADDRESS;
+    private readonly _apiKey = projectConfig.API_KEY;
+    private readonly _path: string = "";
+    private _currentPage = 1;
+    private _offset = 0;
 
-  private readonly _address = projectConfig.ADDRESS;
-  private readonly _apiKey = projectConfig.API_KEY;
-  private readonly _path: string = "";
-  private _currentPage: number = 1;
-  private _offset: number = 0;
-
-  private _list: CollectionModel<number, RecipeItemModel> = {
-    order: [],
-    entities: {},
-  };
-  private _meta: Meta = Meta.initial;
-  private _numberOfItems = 0;
-
-  async getRecipeList(
-    searchValue: string, typeValue: string
-  ): Promise<void> {
-    this._meta = Meta.loading;
-    this._list = getInitialCollectionModel();
-    this._numberOfItems = 0;
-
-    const query: (queryParamType | null) = {
-      addRecipeNutrition : "true",
-      query: searchValue,
-      offset: `${this._offset}`,
-      number: `${projectConfig.ELEMS_PER_PAGE}`,
-      type: typeValue
+    private _list: CollectionModel<number, RecipeItemModel> = {
+        order: [],
+        entities: {},
     };
+    private _meta: Meta = Meta.initial;
+    private _numberOfItems = 0;
 
-    const url =
-      this._address +
-      "/" +
-      this._path +
-      "?" +
-      qs.stringify(query) +
-      "&apiKey=" +
-      this._apiKey;
-
-    const response = await axios.get(url);
-
-    runInAction(() => {
-      if (response.status !== 200) {
-        this._meta = Meta.error;
-      }
-
-      try {
-        const list: RecipeItemApi[] = [];
-        this._numberOfItems = response.data.totalResults;
-        response.data.results.forEach((elem: RecipeItemApi) => list.push(normalizeRecipeItem(elem)));
-        this._meta = Meta.success;
-        this._list = normalizeCollection(list, (listItem) => listItem.id);
-        return;
-      } catch (e) {
-        this._meta = Meta.error;
+    async getRecipeList(searchValue: string, typeValue: string): Promise<void> {
+        this._meta = Meta.loading;
         this._list = getInitialCollectionModel();
-      }
+        this._numberOfItems = 0;
 
-    });
-  }
+        const query: queryParamType | null = {
+            addRecipeNutrition: "true",
+            query: searchValue,
+            offset: `${this._offset}`,
+            number: `${projectConfig.ELEMS_PER_PAGE}`,
+            type: typeValue,
+        };
 
-  get list(): RecipeItemModel[] {
-    return linearizeCollection(this._list);
-  }
-  get meta(): Meta {
-    return this._meta;
-  }
+        const url = this._address + "/" + this._path + "?" + qs.stringify(query) + "&apiKey=" + this._apiKey;
 
-  get numberOfItems(): number {
-    return this._numberOfItems;
-  }
+        const response = await axios.get(url);
 
-  get currentPage(): number {
-    return this._currentPage;
-  }
+        runInAction(() => {
+            if (response.status !== 200) {
+                this._meta = Meta.error;
+            }
 
-  setCurrentPage(newCurrentPage: number) {
-    if (newCurrentPage !== this._currentPage) {
-      this._currentPage = newCurrentPage
+            try {
+                const list: RecipeItemApi[] = [];
+                this._numberOfItems = response.data.totalResults;
+                response.data.results.forEach((elem: RecipeItemApi) => list.push(normalizeRecipeItem(elem)));
+                this._meta = Meta.success;
+                this._list = normalizeCollection(list, (listItem) => listItem.id);
+                return;
+            } catch (e) {
+                this._meta = Meta.error;
+                this._list = getInitialCollectionModel();
+            }
+        });
     }
-  }
 
-  get offset(): number {
-    return this._offset;
-  }
-
-  setOffset(newOffset: number) {
-    if (this._offset !== newOffset) {
-      this._offset = newOffset;
+    get list(): RecipeItemModel[] {
+        return linearizeCollection(this._list);
     }
-  }
+    get meta(): Meta {
+        return this._meta;
+    }
 
-  destroy(): void {}
+    get numberOfItems(): number {
+        return this._numberOfItems;
+    }
+
+    get currentPage(): number {
+        return this._currentPage;
+    }
+
+    setCurrentPage(newCurrentPage: number) {
+        if (newCurrentPage !== this._currentPage) {
+            this._currentPage = newCurrentPage;
+        }
+    }
+
+    get offset(): number {
+        return this._offset;
+    }
+
+    setOffset(newOffset: number) {
+        if (this._offset !== newOffset) {
+            this._offset = newOffset;
+        }
+    }
+
+    destroy(): void {}
 }
