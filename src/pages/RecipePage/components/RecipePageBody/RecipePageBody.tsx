@@ -30,8 +30,7 @@ const RecipePageBody: React.FC<RecipePageBodyProps> = ({
         </div>
       </div>
       <div className={styles.recipe__description}>
-        <h3 className={styles["recipe__ingredients-title"]}>Ingredients</h3>
-        <ul className={styles["recipe__ingredients-list"]}>
+        <ul className={styles["recipe__summary"]}>
           <div dangerouslySetInnerHTML={{ __html: summary }} />
         </ul>
       </div>

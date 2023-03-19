@@ -41,7 +41,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   return (
     <div className={MultiDropdownClass}>
-      <div className={styles["multi-dropdown__selected"]} onClick={handleClick}>
+      <div className={classNames(styles["multi-dropdown__selected"], !value && styles["multi-dropdown__selected_empty"])} onClick={handleClick}>
         {value ? value : placeholder}
       </div>
       {isVisible && !disabled && (

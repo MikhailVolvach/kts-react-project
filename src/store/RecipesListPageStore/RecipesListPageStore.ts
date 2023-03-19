@@ -1,5 +1,5 @@
 import {
-  normalizeRecipeItem,
+  normalizeRecipeItem, RecipeItemApi,
   RecipeItemModel,
 } from "store/models";
 import {
@@ -32,6 +32,7 @@ export default class RecipesListPageStore implements ILocalStore {
       _numberOfItems: observable,
       _currentPage: observable,
       _offset: observable,
+
       list: computed,
       meta: computed,
       numberOfItems: computed,
@@ -47,12 +48,14 @@ export default class RecipesListPageStore implements ILocalStore {
     if (currentPage !== this._currentPage) {
       this._currentPage = currentPage;
     }
+
+    console.log(this._path, this._currentPage);
   }
 
   private readonly _address = projectConfig.ADDRESS;
   private readonly _apiKey = projectConfig.API_KEY;
   private readonly _path: string = "";
-  private readonly _currentPage: number = 1;
+  private _currentPage: number = 1;
   private _offset: number = 0;
 
   private _list: CollectionModel<number, RecipeItemModel> = {
@@ -69,13 +72,13 @@ export default class RecipesListPageStore implements ILocalStore {
     this._list = getInitialCollectionModel();
     this._numberOfItems = 0;
 
-    const query: (queryParamType | null)[] = [
-      { name: "addRecipeNutrition", value: "true" },
-      { name: "query", value: searchValue },
-      { name: "offset", value: `${this._offset}` },
-      { name: "number", value: `${projectConfig.ELEMS_PER_PAGE}` },
-      { name: "type", value: typeValue }
-    ]
+    const query: (queryParamType | null) = {
+      addRecipeNutrition : "true",
+      query: searchValue,
+      offset: `${this._offset}`,
+      number: `${projectConfig.ELEMS_PER_PAGE}`,
+      type: typeValue
+    };
 
     const url =
       this._address +
@@ -94,8 +97,9 @@ export default class RecipesListPageStore implements ILocalStore {
       }
 
       try {
-        const list = [];
-        list.push(normalizeRecipeItem(response.data));
+        const list: RecipeItemApi[] = [];
+        this._numberOfItems = response.data.totalResults;
+        response.data.results.forEach((elem: RecipeItemApi) => list.push(normalizeRecipeItem(elem)));
         this._meta = Meta.success;
         this._list = normalizeCollection(list, (listItem) => listItem.id);
         return;
@@ -103,6 +107,7 @@ export default class RecipesListPageStore implements ILocalStore {
         this._meta = Meta.error;
         this._list = getInitialCollectionModel();
       }
+
     });
   }
 
@@ -121,12 +126,20 @@ export default class RecipesListPageStore implements ILocalStore {
     return this._currentPage;
   }
 
+  setCurrentPage(newCurrentPage: number) {
+    if (newCurrentPage !== this._currentPage) {
+      this._currentPage = newCurrentPage
+    }
+  }
+
   get offset(): number {
     return this._offset;
   }
 
   setOffset(newOffset: number) {
-    this._offset = newOffset;
+    if (this._offset !== newOffset) {
+      this._offset = newOffset;
+    }
   }
 
   destroy(): void {}

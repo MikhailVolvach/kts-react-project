@@ -11,6 +11,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 
+  text-transform: capitalize;
+
   &:first-child {
     border-radius: $standard-radius $standard-radius 0 0;
   }

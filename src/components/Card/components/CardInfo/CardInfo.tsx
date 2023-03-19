@@ -15,7 +15,6 @@ const CardInfo: React.FC<CardInfoComponentProps> = ({
   subtitle,
   className = "",
 }) => {
-  const ingredientsFlag = subtitle.length > 3;
   const subtitleSliced = subtitle.slice(0, 3).join(" + ");
 
   return (
@@ -23,7 +22,6 @@ const CardInfo: React.FC<CardInfoComponentProps> = ({
       <div className={styles.card__title}>{title}</div>
       <div className={styles.card__subtitle}>
         {subtitleSliced}
-        {ingredientsFlag && " + more"}
       </div>
     </div>
   );

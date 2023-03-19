@@ -3,6 +3,7 @@
 
 .card__info {
   margin-bottom: 5px;
+  flex-grow: 1;
 }
 
 .card__title {
@@ -15,7 +16,11 @@
 }
 
 .card__subtitle {
-  @include font-params(12px, -0.03em, 400, 16px, $dark-grey);
+  @include font-params(12px, -0.03em, 400, 1.5em, $dark-grey);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   opacity: 0.5;
   text-transform: capitalize;

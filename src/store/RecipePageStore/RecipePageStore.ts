@@ -80,9 +80,7 @@ export default class RecipePageStore implements ILocalStore {
 
       try {
         const list: RecipeItemApi[] = [];
-        this._numberOfItems = response.data.totalResults;
-        response.data.results.forEach((elem: RecipeItemApi) => list.push(normalizeRecipeItem(elem)));
-
+        list.push(normalizeRecipeItem(response.data));
         this._meta = Meta.success;
         this._list = normalizeCollection(list, (listItem) => listItem.id);
         return;

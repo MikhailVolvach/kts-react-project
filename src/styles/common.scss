@@ -35,8 +35,12 @@ aside {
 }
 
 html {
+  width: 100vw;
   overflow-x: hidden;
-  margin-right: calc(-1 * (100vw - 100%));
+}
+
+body {
+  width: 100%;
 }
 
 html,
@@ -44,8 +48,8 @@ body {
   font-size: 14px;
   height: 100%;
   line-height: 1;
-  width: 100%;
 }
+
 
 input,
 button,

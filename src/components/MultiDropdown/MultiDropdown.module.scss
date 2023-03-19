@@ -31,6 +31,12 @@
     padding: 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    text-transform: capitalize;
+
+    &_empty {
+      color: $dark-grey;
+    }
   }
 
   &__options {

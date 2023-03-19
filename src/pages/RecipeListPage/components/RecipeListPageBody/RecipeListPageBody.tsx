@@ -22,15 +22,16 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
   searchValue,
   typeValue
 }) => {
-
+  const [searchParams, setSearchParams] = useQueryParamsStore();
   const currentPageStore = useLocalStore(
     () => new RecipesListPageStore("complexSearch", +searchParams.page)
   );
-  const [searchParams, setSearchParams] = useQueryParamsStore();
+
 
   const handlePaginationClick = React.useCallback(
     (pageNumber: number) => {
       currentPageStore.setOffset(projectConfig.ELEMS_PER_PAGE * (pageNumber - 1));
+      currentPageStore.setCurrentPage(pageNumber);
       setSearchParams(
         new URLSearchParams([
           ["search", `${searchValue}`],
@@ -44,7 +45,7 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
 
   React.useEffect(() => {
     currentPageStore.getRecipeList(searchValue, typeValue);
-  }, [currentPageStore, currentPageStore.offset, searchValue, typeValue]);
+  }, [currentPageStore, currentPageStore.currentPage, searchValue, typeValue]);
 
   return (
     <div className={classNames(styles.recipe__body, "recipe-body")}>
@@ -68,7 +69,7 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
             />
           ))}
         </div> : <p className={styles["recipe-body__not-found-text"]}>Ничего не найдено</p>}
-        {currentPageStore.numberOfItems &&
+        {currentPageStore.numberOfItems > 0 &&
             <Pagination
                 callback={handlePaginationClick}
                 totalPages={Math.ceil(
@@ -76,7 +77,6 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({
                 )}
                 currentPage={currentPageStore.currentPage}
             />}
-
       </WithLoader>
     </div>
   );

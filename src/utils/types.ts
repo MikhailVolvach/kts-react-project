@@ -1,4 +1,5 @@
 import * as qs from "qs";
+import {projectConfig} from "config/projectConfig";
 
 export type Option = {
   key: string;
@@ -22,7 +23,11 @@ export type nutritionType = {
   ingredients: ingredientType[];
 };
 
+// export type queryParamType = {
+//   name: string;
+//   value: undefined | string | string[] | qs.ParsedQs | qs.ParsedQs[];
+// };
+
 export type queryParamType = {
-  name: string;
-  value: undefined | string | string[] | qs.ParsedQs | qs.ParsedQs[];
-};
+  [key: string]: string;
+}
