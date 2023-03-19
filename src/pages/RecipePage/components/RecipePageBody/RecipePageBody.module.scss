@@ -2,31 +2,36 @@
 @import "styles/variables";
 
 .recipe__body {
-  background: $white;
-  border-radius: $standard-radius;
+  position: relative;
+
   margin-top: -10px;
   padding: 68px 16px 12px 36px;
-  position: relative;
+
+  background: $white;
+  border-radius: $standard-radius;
 
   &::after {
 
     @include top-left(18px, 50%);
 
     @include width-height(58px, 5px);
-    background: #ffcbcb;
 
-    border-radius: 12px;
     content: "";
-    display: block;
-    position: absolute;
 
+    position: absolute;
     transform: translate(-50%, 0);
+
+    display: block;
+
+    background: #ffcbcb;
+    border-radius: 12px;
   }
 }
 
 .recipe__title {
 
   @include font-params(27px, 0, 500, 35px, #09051C);
+
   margin-bottom: 16px;
 }
 
@@ -57,8 +62,9 @@
   font-size: 12px;
 
   .recipe__summary {
-    margin-bottom: 34px;
     @include font-params(12px, 0, 500, 180%, #000000);
+
+    margin-bottom: 34px;
   }
 
   .recipe__ingredient {
@@ -66,7 +72,7 @@
   }
 
   h3 {
-    font-size: 14px;
     margin-bottom: 5px;
+    font-size: 14px;
   }
 }

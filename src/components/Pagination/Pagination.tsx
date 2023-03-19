@@ -17,12 +17,12 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, callback, currentPa
     const pages = fetchPageNumbers(totalPages, currentPage);
 
     const handleClick = React.useCallback(
-        (e: React.MouseEvent<HTMLButtonElement>) => {
-            const page = +((e.target as HTMLInputElement).childNodes[0].nodeValue || 1);
+        (e: React.SyntheticEvent<HTMLButtonElement>) => {
+            const page = +(e.currentTarget.dataset.attr || 1);
             if (page === currentPage) {
                 return;
             }
-            callback(+((e.target as HTMLInputElement).childNodes[0].nodeValue || 1));
+            callback(page);
         },
         [callback],
     );
@@ -73,7 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, callback, currentPa
                                 style.pagination__item,
                                 currentPage === page && style.pagination__item_active,
                             )}
-                            // TODO: Попробовать пробросить в дата аттрибут номер страницы, чтобы было проще и правильнее обрабатывать клик по кнопке
+                            dataAttr={page.toString()}
                         >
                             {page}
                         </Button>

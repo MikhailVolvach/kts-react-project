@@ -9,7 +9,6 @@ import styles from "./RecipListPage.module.scss";
 
 const RecipeListPage = () => {
     const [searchValue, setSearchValue] = useQueryParamsStore();
-    // const [type, setType] = React.useState<string[]>([searchValue.type.toString()]);
 
     const handleSearch = React.useCallback(
         (value: string) => {

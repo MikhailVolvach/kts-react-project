@@ -7,13 +7,13 @@
 
   @include font-params(12px, 0.01em, 400, 16px, #000000);
 
+  max-width: 366px;
+  padding: 10px;
+
   background: $gradient-pink;
   border: 0;
-
   border-radius: $standard-radius;
-  max-width: 366px;
   outline: 0;
-  padding: 10px;
 
   &::placeholder {
     color: $dark-grey;
@@ -25,8 +25,8 @@
   }
 
   &_disabled {
-    background: $gradient-grey;
-    color: $black;
     cursor: default;
+    color: $black;
+    background: $gradient-grey;
   }
 }

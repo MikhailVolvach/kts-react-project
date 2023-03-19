@@ -8,6 +8,7 @@ import styles from "./Button.module.scss";
 export type ButtonProps = React.PropsWithChildren<{
     loading?: boolean;
     className?: string;
+    dataAttr?: string;
 }> &
     React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick,
     disabled = false,
     className = "",
+    dataAttr="",
     ...ButtonProps
 }) => {
     if (loading) {
@@ -24,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
     }
     const buttonClass = classNames(styles.button, disabled && styles.button_disabled, className);
     return (
-        <button className={buttonClass} onClick={onClick} disabled={disabled} {...ButtonProps}>
+        <button className={buttonClass} onClick={onClick} disabled={disabled} data-attr={dataAttr} {...ButtonProps}>
             {loading && <Loader loading={loading} size={LoaderSize.s} />}
             {children}
         </button>

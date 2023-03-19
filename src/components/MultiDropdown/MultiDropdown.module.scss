@@ -4,14 +4,35 @@
 .multi-dropdown {
 
   @include font-params(12px, 0.01em, 400, 16px, $black);
+
+  cursor: pointer;
+  width: 100%;
   max-width: 367px;
   min-height: 36px;
-  width: 100%;
-  cursor: pointer;
+
+  &__selected {
+
+    @include flex-ac;
+
+    overflow: hidden;
+
+    height: 36px;
+    padding: 10px;
+
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    white-space: nowrap;
+
+    background: $gradient-pink;
+    border-radius: $standard-radius;
+
+    &_empty {
+      color: $dark-grey;
+    }
+  }
 
   &_disabled {
     .multi-dropdown__selected {
-      //& .multi-dropdown__selected {
       background: $gradient-grey;
     }
   }
@@ -20,31 +41,11 @@
     color: #000;
   }
 
-  &__selected {
-
-    @include flex-ac;
-    background: $gradient-pink;
-    border-radius: $standard-radius;
-    height: 36px;
-    overflow: hidden;
-
-    padding: 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    text-transform: capitalize;
-
-    &_empty {
-      color: $dark-grey;
-    }
-  }
-
   &__options {
-
-    animation: appear 0.3s ease-in;
-    height: 0;
     top: 0;
+    height: 0;
     transition: all 0.3s ease-in;
+    animation: appear 0.3s ease-in;
   }
 }
 @keyframes appear {

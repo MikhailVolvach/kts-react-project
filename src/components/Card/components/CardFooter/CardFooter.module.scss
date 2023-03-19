@@ -12,24 +12,23 @@
 .card__add-button {
 
   @include rounded;
-  min-height: 24px;
-  min-width: 24px;
-  padding: 0;
 
   position: relative;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
 
   &:hover {
     background-color: $red;
   }
   
   .card__add-button-part {
-    //& .card__add-button-part {
 
     @include width-height(12px, 1.5px);
 
+    display: block;
     background-color: $white;
     border-radius: 1.5px;
-    display: block;
 
     &:last-child {
       position: absolute;

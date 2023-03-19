@@ -1,8 +1,8 @@
 @import "styles/variables";
 
 .multi-dropdown__options {
+  top: 0;
+  margin-top: 4px;
   background-color: $non-selected-color;
   border-radius: $standard-radius;
-  margin-top: 4px;
-  top: 0;
 }

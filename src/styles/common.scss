@@ -1,8 +1,8 @@
 /* ----------ОБНУЛЕНИЕ------------ */
 * {
-  border: 0;
   margin: 0;
   padding: 0;
+  border: 0;
 }
 
 *,
@@ -35,8 +35,8 @@ aside {
 }
 
 html {
-  width: 100vw;
   overflow-x: hidden;
+  width: 100vw;
 }
 
 body {
@@ -45,8 +45,8 @@ body {
 
 html,
 body {
-  font-size: 14px;
   height: 100%;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -66,15 +66,15 @@ button {
 }
 
 button::-moz-focus-inner {
-  border: 0;
   padding: 0;
+  border: 0;
 }
 
 img {
-  max-height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  max-height: 100%;
   vertical-align: top;
+  object-fit: cover;
 }
 
 h1,

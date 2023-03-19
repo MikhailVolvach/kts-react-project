@@ -1,8 +1,3 @@
-export type Option = {
-    key: string;
-    value: string;
-};
-
 export type ingredientType = {
     name: string;
     id: number;
@@ -19,11 +14,6 @@ export type nutritionType = {
     nutrients: nutrientType[];
     ingredients: ingredientType[];
 };
-
-// export type queryParamType = {
-//   name: string;
-//   value: undefined | string | string[] | qs.ParsedQs | qs.ParsedQs[];
-// };
 
 export type queryParamType = {
     [key: string]: string;

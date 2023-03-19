@@ -11,12 +11,12 @@ export type CardInfoComponentProps = {
 };
 
 const CardInfo: React.FC<CardInfoComponentProps> = ({ title, subtitle, className = "" }) => {
-    const subtitleSliced = subtitle.slice(0, 3).join(" + ");
+    const subtitleJoined = subtitle.join(" + ");
 
     return (
         <div className={classNames(styles.card__info, className)}>
             <div className={styles.card__title}>{title}</div>
-            <div className={styles.card__subtitle}>{subtitleSliced}</div>
+            <div className={styles.card__subtitle}>{subtitleJoined}</div>
         </div>
     );
 };

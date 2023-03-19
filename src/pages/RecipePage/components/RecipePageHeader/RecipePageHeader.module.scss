@@ -4,16 +4,16 @@
 .recipe__header {
 
   @include top-left(0, 0);
-  left: 0;
+
   top: 0;
+  left: 0;
 }
 
 .recipe__image {
-  max-width: 100%;
   position: relative;
+  max-width: 100%;
 
   img {
-    //& img {
     @include width-height(100%, 100%);
 
     object-fit: cover;
@@ -27,6 +27,6 @@
 
   @include flex-center;
 
-  background: rgba(255, 0, 0, 50%);
   position: absolute;
+  background: rgb(255 0 0 / 50%);
 }

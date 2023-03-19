@@ -4,14 +4,15 @@
 .multi-dropdown__option {
 
   @include flex-ac;
-  height: 36px;
+
   overflow: hidden;
 
+  height: 36px;
   padding: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
+  text-overflow: ellipsis;
   text-transform: capitalize;
+  white-space: nowrap;
 
   &:first-child {
     border-radius: $standard-radius $standard-radius 0 0;

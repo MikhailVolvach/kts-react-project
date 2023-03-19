@@ -3,8 +3,8 @@
 .pagination {
   &__container {
     display: flex;
-    margin: 0 auto;
     width: fit-content;
+    margin: 0 auto;
   }
 
   &__arrow {
@@ -15,10 +15,10 @@
 
   &__arrow,
   &__item {
+    margin-right: 5px;
+    color: $red;
     background: $gradient-pink;
     border-color: transparent;
-    color: $red;
-    margin-right: 5px;
   }
 
   &__arrow:disabled {
@@ -27,8 +27,8 @@
   }
 
   &__item {
-    margin-right: 5px;
     min-width: 38px;
+    margin-right: 5px;
     padding: 10px;
 
     &_active {

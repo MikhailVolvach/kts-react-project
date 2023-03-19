@@ -3,34 +3,34 @@
 }
 
 @mixin width-height($width, $height) {
-  height: $height;
   width: $width;
+  height: $height;
 }
 
 @mixin top-left($top, $left) {
-  left: $left;
   top: $top;
+  left: $left;
 }
 
 @mixin flex-center {
-  align-items: center;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
 @mixin flex-ac {
-  align-items: center;
   display: flex;
+  align-items: center;
 }
 
 @mixin flex-as {
-  align-items: flex-start;
   display: flex;
+  align-items: flex-start;
 }
 
 @mixin flex-ae {
-  align-items: flex-end;
   display: flex;
+  align-items: flex-end;
 }
 
 @mixin flex-jsb {
@@ -39,8 +39,8 @@
 }
 
 @mixin flex-ac-jsb {
-  align-items: center;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -56,9 +56,9 @@
 }
 
 @mixin font-params($size, $letterSpacing, $weight, $lineHeight, $color) {
-  color: $color;
   font-size: $size;
   font-weight: $weight;
-  letter-spacing: $letterSpacing;
   line-height: $lineHeight;
+  color: $color;
+  letter-spacing: $letterSpacing;
 }

@@ -4,10 +4,12 @@
 .app {
 
   @include width-height(100%, 100%);
+
+  position: relative;
+
+  max-width: 375px;
+  margin: 0 auto;
+
   background: #fff url("svg/Pattern.svg") top right no-repeat;
   border-radius: 10px;
-
-  margin: 0 auto;
-  max-width: 375px;
-  position: relative;
 }

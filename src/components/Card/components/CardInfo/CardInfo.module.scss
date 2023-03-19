@@ -2,26 +2,27 @@
 @import "styles/variables";
 
 .card__info {
-  margin-bottom: 5px;
   flex-grow: 1;
+  margin-bottom: 5px;
 }
 
 .card__title {
   @include font-params(18px, -0.03em, 500, 25px, $black);
-  margin-bottom: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
+  overflow: hidden;
+  margin-bottom: 5px;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .card__subtitle {
   @include font-params(12px, -0.03em, 400, 1.5em, $dark-grey);
 
-  white-space: nowrap;
   overflow: hidden;
+
   text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
 
   opacity: 0.5;
-  text-transform: capitalize;
 }
