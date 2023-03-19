@@ -6,15 +6,13 @@ import classNames from "classnames";
 import styles from "./MultiDropdownOption.module.scss";
 
 export type MultiDropdownOptionProps = {
-  keyOpt: string;
-  keyValue: string;
-  onChange?: (option: Option) => void;
+  value: string;
+  onChange?: (option: string) => void;
   isSelected: boolean;
 };
 
 const MultiDropdownOption: React.FC<MultiDropdownOptionProps> = ({
-  keyOpt,
-  keyValue,
+  value,
   onChange,
   isSelected,
 }) => {
@@ -22,7 +20,7 @@ const MultiDropdownOption: React.FC<MultiDropdownOptionProps> = ({
     if (!onChange) {
       return;
     }
-    onChange({ key: keyOpt, value: keyValue });
+    onChange(value);
   }, [onChange]);
 
   return (
@@ -33,7 +31,7 @@ const MultiDropdownOption: React.FC<MultiDropdownOptionProps> = ({
       )}
       onClick={handleClick}
     >
-      {keyValue}
+      {value}
     </div>
   );
 };

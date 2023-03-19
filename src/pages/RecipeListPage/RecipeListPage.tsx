@@ -8,6 +8,7 @@ import { observer } from "mobx-react-lite";
 
 const RecipeListPage = () => {
   const [searchValue, setSearchValue] = useQueryParamsStore();
+  // const [type, setType] = React.useState<string[]>([searchValue.type.toString()]);
 
   const handleSearch = React.useCallback(
     (value: string) => {
@@ -16,9 +17,17 @@ const RecipeListPage = () => {
     [setSearchValue]
   );
 
-  const handleTypeChange = React.useCallback((type: string) => {
-    setSearchValue(new URLSearchParams([["search", `${searchValue.search}`], ["type", `${type}`], ["page", "1"]]))
-  }, []);
+  const handleTypeChange = React.useCallback((clickedType: string) => {
+    let oldType = searchValue.type.toString().split(",").filter(elem => elem !== "");
+
+    if (!oldType.includes(clickedType)) {
+      oldType.push(clickedType);
+    } else {
+      oldType = oldType.filter(elem => elem !== clickedType);
+    }
+
+    setSearchValue(new URLSearchParams([["search", `${searchValue.search}`], ["type", `${oldType.join()}`], ["page", "1"]]));
+  }, [searchValue.search, searchValue.type]);
 
   return (
     <div className={styles.recipe}>
@@ -27,7 +36,7 @@ const RecipeListPage = () => {
           onSearchButtonClick={handleSearch}
           searchValue={searchValue.search?.toString()}
           onTypeChange={handleTypeChange}
-          typeValue={searchValue.type?.toString()}
+          typeValue={searchValue.type?.toString().split(",").join(", ")}
         />
         <RecipeListPageBody
           searchValue={searchValue.search?.toString()}

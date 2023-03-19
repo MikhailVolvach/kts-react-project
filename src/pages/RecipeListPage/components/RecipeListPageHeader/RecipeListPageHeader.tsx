@@ -7,7 +7,6 @@ import { requestTypes } from "utils/requestTypes";
 import classNames from "classnames";
 
 import styles from "./RecipeListPageHeader.module.scss";
-import { Option } from "utils/types";
 
 export type RecipeListPageHeaderProps = {
   onSearchButtonClick: (value: string) => void;
@@ -21,6 +20,7 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
   searchValue,
   onTypeChange, typeValue
 }) => {
+  const [type, setType] = React.useState<string[]>([]);
   const [inputValue, setInputValue] = React.useState<string>(searchValue);
 
   const handleInputChange = React.useCallback(
@@ -35,10 +35,10 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
   }, [inputValue, onSearchButtonClick]);
 
   const handleDropdownClick = React.useCallback(
-    (option: Option) => {
-        onTypeChange(option.value);
+    (option: string) => {
+        onTypeChange(option);
     },
-    [typeValue]
+    [type, setType]
   );
 
   return (

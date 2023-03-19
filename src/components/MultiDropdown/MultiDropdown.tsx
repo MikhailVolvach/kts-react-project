@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Option } from "utils/types";
 import classNames from "classnames";
 
 import MultiDropdownOptions, {
@@ -31,7 +30,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
-  const handleChange = React.useCallback((value: Option) => {
+  const handleChange = React.useCallback((value: string) => {
     onChange(value);
   }, []);
 
