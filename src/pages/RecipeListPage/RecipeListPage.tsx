@@ -10,6 +10,9 @@ import styles from "./RecipListPage.module.scss";
 const RecipeListPage = () => {
     const [searchValue, setSearchValue] = useQueryParamsStore();
 
+    const search = searchValue.search.toString();
+    const type = searchValue.type.toString();
+
     const handleSearch = React.useCallback(
         (value: string) => {
             setSearchValue(new URLSearchParams([["search", `${value}`]]));
@@ -46,13 +49,13 @@ const RecipeListPage = () => {
             <div className={styles.recipe__container}>
                 <RecipeListPageHeader
                     onSearchButtonClick={handleSearch}
-                    searchValue={searchValue.search?.toString()}
+                    searchValue={search}
                     onTypeChange={handleTypeChange}
-                    typeValue={searchValue.type?.toString().split(",").join(", ")}
+                    typeValue={type.split(",").join(", ")}
                 />
                 <RecipeListPageBody
-                    searchValue={searchValue.search?.toString()}
-                    typeValue={searchValue.type?.toString()}
+                    searchValue={search}
+                    typeValue={type}
                 />
             </div>
         </div>

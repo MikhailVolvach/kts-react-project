@@ -24,8 +24,8 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
     const [type, setType] = React.useState<string[]>([]);
     const [inputValue, setInputValue] = React.useState<string>(searchValue);
 
-    const handleInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
+    const handleInputChange = React.useCallback((e: React.SyntheticEvent<HTMLInputElement>) => {
+        setInputValue(e.currentTarget.value);
     }, []);
 
     const handleSearch = React.useCallback(() => {
@@ -45,7 +45,7 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
                 <Input
                     className={styles.search__input}
                     value={inputValue}
-                    onChange={(e) => handleInputChange(e)}
+                    onChange={handleInputChange}
                     placeholder="Search"
                 />
                 <Button className={styles.search__button} onClick={handleSearch} />
