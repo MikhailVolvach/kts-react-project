@@ -2,15 +2,9 @@
 @import "styles/variables";
 
 .loader {
-  // @include width-height(100%, calc(80vh - 840px / 2));
   @include flex-center;
 
-  //position: absolute;
-  //top: 50%;
-  //left: 50%;
-  height: 100%;
-
-
+  height: 600px;
 
   &__circle {
     @include rounded;
