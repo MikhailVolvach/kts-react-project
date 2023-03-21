@@ -43,7 +43,7 @@ export default class RecipesListPageStore implements ILocalStore {
 
     private readonly _address = projectConfig.ADDRESS;
 
-    private readonly _apiKey = projectConfig.API_KEY[projectConfig.API_KEY_NUM];
+    private readonly _apiKey = projectConfig.API_KEY[2];
     private readonly _path: string = "";
 
     private _currentPage = 1;
