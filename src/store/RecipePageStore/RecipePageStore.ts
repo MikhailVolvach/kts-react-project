@@ -16,8 +16,9 @@ type PrivateFields = "_list" | "_meta" | "_numberOfItems";
 
 export default class RecipePageStore implements ILocalStore {
     private readonly _address = projectConfig.ADDRESS;
-    private readonly _apiKey = projectConfig.API_KEY;
-
+    private _apiKeyFlag = 0;
+    // private readonly _apiKey = projectConfig.API_KEY[this._apiKeyFlag];
+    private _apiKey = "";
     private readonly _path: string = "";
 
     constructor(path: string) {
@@ -44,6 +45,7 @@ export default class RecipePageStore implements ILocalStore {
     private _numberOfItems = 0;
 
     async getRecipeList(): Promise<void> {
+        this._apiKey = projectConfig.API_KEY[this._apiKeyFlag];
         this._meta = Meta.loading;
         this._list = getInitialCollectionModel();
         this._numberOfItems = 0;
@@ -73,6 +75,11 @@ export default class RecipePageStore implements ILocalStore {
             } catch (e) {
                 this._meta = Meta.error;
                 this._list = getInitialCollectionModel();
+                if (this._apiKeyFlag < projectConfig.API_KEY.length) {
+                    this._apiKeyFlag++;
+                } else {
+                    this._apiKeyFlag = 0;
+                }
             }
         });
     }
