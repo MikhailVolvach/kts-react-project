@@ -1,4 +1,4 @@
-@import "@styles/variables.scss";
+@import "styles/variables";
 
 .pagination {
   &__container {
@@ -16,23 +16,23 @@
   &__arrow,
   &__item {
     margin-right: 5px;
-    background: $gradientPink;
-    border-color: transparent;
     color: $red;
+    background: $gradient-pink;
+    border-color: transparent;
   }
 
   &__arrow:disabled {
-    color: $disabledColor;
-    stroke: $disabledColor;
+    color: $disabled-color;
+    stroke: $disabled-color;
   }
 
   &__item {
     min-width: 38px;
-    padding: 10px;
     margin-right: 5px;
+    padding: 10px;
 
     &_active {
-      background-color: $gradientPinkHover;
+      background: $gradient-pink-hover;
     }
   }
 }

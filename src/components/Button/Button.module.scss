@@ -1,26 +1,29 @@
-@import "@styles/mixins.scss";
-@import "@styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .button {
   @include flex-center;
-  background-color: $red;
-  border-radius: $standardRadius;
-  @include fontParams(18px, 0, 500, 25px, $white);
-  outline: none;
-  border: 0;
+
+  @include font-params(18px, 0, 500, 25px, $white);
+
   padding: 8px 14px;
+
+  background-color: $red;
+  border: 0;
+  border-radius: $standard-radius;
+  outline: none;
 
   &:not(:disabled):hover {
     opacity: 0.5;
   }
 
   &_disabled {
-    background-color: $disabledColor;
+    background-color: $disabled-color;
   }
 
   .loader {
+    margin-right: 9px;
     border-color: $white;
     border-right-color: transparent;
-    margin-right: 9px;
   }
 }

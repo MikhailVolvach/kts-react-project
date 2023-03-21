@@ -1,6 +1,3 @@
-export const pagesArr = (totalElems: number, elemsPerPage: number) => {
-  return Array.from(
-    { length: Math.ceil(totalElems / elemsPerPage) },
-    (v, k) => k + 1
-  );
+export const pages = (totalElems: number, elemsPerPage: number) => {
+    return Math.ceil(totalElems / elemsPerPage);
 };

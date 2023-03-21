@@ -1,30 +1,93 @@
-@import "@styles/mixins.scss";
-@import "@styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .multi-dropdown {
-  max-width: 367px;
+
+  @include font-params(12px, 0.01em, 400, 16px, $black);
+
+  cursor: pointer;
+
+  overflow: hidden;
+
   width: 100%;
+  max-width: 367px;
   min-height: 36px;
-  @include fontParams(12px, 0.01em, 400, 16px, $black);
+
+  &__selected {
+    @include flex-ac;
+
+    position: relative;
+    z-index: 10;
+
+    overflow: hidden;
+
+    height: 36px;
+    padding: 10px;
+
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    white-space: nowrap;
+
+    background: $gradient-pink;
+    border-radius: $standard-radius;
+
+    &_empty {
+      color: $dark-grey;
+    }
+  }
 
   &_disabled {
-    & .multi-dropdown__selected {
-      background: $gradientGrey;
+    .multi-dropdown__selected {
+      background: $gradient-grey;
     }
   }
 
   &_picked {
-    color: #000000;
+    color: #000;
   }
 
-  &__selected {
-    background: $gradientPink;
-    border-radius: $standardRadius;
-    height: 36px;
-    @include flex-ac;
-    padding: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &__options {
+    z-index: -1;
+
+    &_visible {
+      animation: in-animation 450ms ease-in;
+    }
+
+    &_invisible {
+      animation: out-animation 470ms ease-out;
+      animation-fill-mode: forwards;
+    }
+  }
+
+}
+
+@keyframes in-animation {
+  0% {
+     margin-top: -100%;
+
+     // opacity: 0;
+  }
+
+  100% {
+    margin-top: 0;
+
+    // opacity: 1;
   }
 }
+
+@keyframes out-animation {
+  0% {
+    margin-top: 0;
+
+    // opacity: 1;
+  }
+
+  100% {
+     margin-top: -100%;
+
+    // opacity: 0;
+  }
+}
+
+
+

@@ -1,9 +1,10 @@
-@import "@styles/mixins.scss";
-@import "@styles/variables.scss";
+@import "styles/mixins";
+@import "styles/variables";
 
 .recipe {
   &__loader {
-    @include widthHeight(100%, 100%);
+    @include width-height(100%, 100%);
+
     background-color: $white;
   }
 

@@ -1,50 +1,42 @@
 import React from "react";
 
-import { ReactComponent as ClockIcon } from "@svg/Clock.svg";
-import { ReactComponent as HeartIcon } from "@svg/Heart.svg";
-import { ingredientType } from "@utils/types";
+import ClockIcon from "svg/Clock.svg";
+import HeartIcon from "svg/Heart.svg";
 
 import styles from "./RecipePageBody.module.scss";
 
 export type RecipePageBodyProps = {
-  title?: string;
-  readyInMinutes?: number;
-  aggregateLikes?: number;
-  extendedIngredients?: ingredientType[] | null;
-  instructions?: string;
+    title?: string;
+    readyInMinutes?: number;
+    aggregateLikes?: number;
+    summary?: string;
 };
 
 const RecipePageBody: React.FC<RecipePageBodyProps> = ({
-  title = "",
-  readyInMinutes = "",
-  aggregateLikes = 0,
-  extendedIngredients = null,
-  instructions = "",
+    title = "",
+    readyInMinutes = 0,
+    aggregateLikes = 0,
+    summary = "",
 }) => {
-  return (
-    <div className={styles.recipe__body}>
-      <h1 className={styles.recipe__title}>{title}</h1>
-      <div className={styles.recipe__info}>
-        <div className={styles.recipe__time}>
-          <ClockIcon /> {readyInMinutes} minutes
+    return (
+        <div className={styles.recipe__body}>
+            <h1 className={styles.recipe__title}>{title}</h1>
+            <div className={styles.recipe__info}>
+                <div className={styles.recipe__time}>
+                    <img className={styles.recipe__icon} src={ClockIcon} alt="" /> {readyInMinutes} minutes
+                </div>
+                <div className={styles.recipe__rating}>
+                    <img className={styles.recipe__icon} src={HeartIcon} alt="" /> {aggregateLikes} like
+                    {aggregateLikes === 1 ? "" : "s"}
+                </div>
+            </div>
+            <div className={styles.recipe__description}>
+                <ul className={styles["recipe__summary"]}>
+                    <div dangerouslySetInnerHTML={{ __html: summary }} />
+                </ul>
+            </div>
         </div>
-        <div className={styles.recipe__rating}>
-          <HeartIcon /> {aggregateLikes} likes
-        </div>
-      </div>
-      <div className={styles.recipe__description}>
-        <h3 className={styles["recipe__ingredients-title"]}>Ingredients</h3>
-        <ul className={styles["recipe__ingredients-list"]}>
-          {extendedIngredients?.map((ingredient: any) => (
-            <li className={styles.recipe__ingredient} key={ingredient.id}>
-              {ingredient.name}
-            </li>
-          ))}
-        </ul>
-        <div dangerouslySetInnerHTML={{ __html: instructions }} />
-      </div>
-    </div>
-  );
+    );
 };
 
 export default React.memo(RecipePageBody);

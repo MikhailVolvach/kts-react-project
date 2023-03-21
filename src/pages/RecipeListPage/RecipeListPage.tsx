@@ -1,83 +1,65 @@
 import React from "react";
 
-import Pagination from "@components/Pagination/Pagination";
-import WithLoader from "@components/WithLoader";
-import RecipesStore from "@store/RecipesStore";
-import { Meta } from "@utils/meta";
-import { pagesArr } from "@utils/pagesArr";
-import { recipeListParams } from "@utils/types";
-import { useLocalStore } from "@utils/useLocalStore";
 import { observer } from "mobx-react-lite";
-import { useSearchParams } from "react-router-dom";
+import { useQueryParamsStore } from "store/RootStore/hooks/useQueryParamsStore";
 
 import RecipeListPageBody from "./components/RecipeListPageBody";
 import RecipeListPageHeader from "./components/RecipeListPageHeader";
 import styles from "./RecipListPage.module.scss";
 
 const RecipeListPage = () => {
-  const ELEMS_PER_PAGE = 6;
+    const [searchValue, setSearchValue] = useQueryParamsStore();
 
-  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
-  const pageQuery = searchParams.get("page") || "";
+    const search = searchValue.search.toString();
+    const type = searchValue.type.toString();
 
-  const [currentPage, setCurrentPage] = React.useState(+pageQuery || 1);
+    const handleSearch = React.useCallback(
+        (value: string) => {
+            setSearchValue(new URLSearchParams([["search", `${value}`]]));
+        },
+        [setSearchValue],
+    );
 
-  const recipeListStore = useLocalStore(() => new RecipesStore());
-  const [requestOptions, setRequestOptions] = React.useState<recipeListParams>({
-    path: "complexSearch",
-    queryParams: [
-      { paramName: "addRecipeNutrition", paramValue: true },
-      { paramName: "query", paramValue: searchParams.get("search") },
-    ],
-  });
+    const handleTypeChange = React.useCallback(
+        (clickedType: string) => {
+            let oldType = searchValue.type
+                .toString()
+                .split(",")
+                .filter((elem) => elem !== "");
 
-  const handleSearch = React.useCallback(() => {
-    setRequestOptions({
-      path: requestOptions.path,
-      queryParams: [
-        { paramName: "addRecipeNutrition", paramValue: true },
-        { paramName: "query", paramValue: searchParams.get("search") },
-      ],
-    });
-  }, [searchParams]);
+            if (!oldType.includes(clickedType)) {
+                oldType.push(clickedType);
+            } else {
+                oldType = oldType.filter((elem) => elem !== clickedType);
+            }
 
-  React.useEffect(() => {
-    recipeListStore.getRecipeList(requestOptions);
-  }, [recipeListStore, requestOptions]);
+            setSearchValue(
+                new URLSearchParams([
+                    ["search", `${searchValue.search}`],
+                    ["type", `${oldType.join()}`],
+                    ["page", "1"],
+                ]),
+            );
+        },
+        [searchValue.search, searchValue.type],
+    );
 
-  const handlePaginationClick = React.useCallback(
-    (pageNumber: number) => {
-      setCurrentPage(pageNumber);
-      setSearchParams({ page: pageNumber.toString() });
-    },
-    [setSearchParams]
-  );
-
-  return (
-    <div className={styles.recipe}>
-      <WithLoader
-        loading={recipeListStore.meta === Meta.loading}
-        className={styles.recipe__loader}
-      >
-        <div className={styles.recipe__container}>
-          <RecipeListPageHeader onSearchButtonClick={handleSearch} />
-          <RecipeListPageBody
-            recipes={recipeListStore?.list.slice(
-              (currentPage - 1) * ELEMS_PER_PAGE,
-              currentPage * ELEMS_PER_PAGE
-            )}
-          />
-          {recipeListStore.list.length > ELEMS_PER_PAGE && (
-            <Pagination
-              callback={handlePaginationClick}
-              pagesArr={pagesArr(recipeListStore.list.length, ELEMS_PER_PAGE)}
-              currentPage={currentPage}
-            />
-          )}
+    return (
+        <div className={styles.recipe}>
+            <div className={styles.recipe__container}>
+                <RecipeListPageHeader
+                    onSearchButtonClick={handleSearch}
+                    searchValue={search}
+                    onTypeChange={handleTypeChange}
+                    typeValue={type.split(",").join(", ")}
+                />
+                <RecipeListPageBody
+                    searchValue={search}
+                    typeValue={type}
+                />
+            </div>
         </div>
-      </WithLoader>
-    </div>
-  );
+    );
 };
 
 export default observer(RecipeListPage);

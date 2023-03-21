@@ -16,5 +16,9 @@
   &__button {
     width: 36px;
     padding: 8px 9px;
+
+    background-image: url("svg/search.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 }
