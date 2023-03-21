@@ -13,7 +13,7 @@ export type WithLoaderProps = React.PropsWithChildren<{
 const WithLoader: React.FC<WithLoaderProps> = ({ loading = true, className = "", children }) => {
     return (
         <div className={classNames(styles["with-loader"], className)}>
-            {loading && <Loader className={styles["with-loader__loader"]} />}
+            {loading && <Loader  />}
             {!loading && children}
         </div>
     );
