@@ -39,8 +39,6 @@ export default class RecipesListPageStore implements ILocalStore {
         if (currentPage !== this._currentPage) {
             this._currentPage = currentPage;
         }
-
-        console.log(this._path, this._currentPage);
     }
 
     private readonly _address = projectConfig.ADDRESS;

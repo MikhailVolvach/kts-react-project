@@ -2,7 +2,7 @@
 @import "styles/variables";
 
 .loader {
-  @include width-height(100%, 100vh);
+  @include width-height(100%, 70vh);
   @include flex-center;
 
   animation: rotation 1s linear infinite;

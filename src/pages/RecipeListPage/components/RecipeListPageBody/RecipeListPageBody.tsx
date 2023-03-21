@@ -24,8 +24,8 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({ searchValue, ty
 
     const handlePaginationClick = React.useCallback(
         (pageNumber: number) => {
-            currentPageStore.setOffset(projectConfig.ELEMS_PER_PAGE * (pageNumber - 1));
             currentPageStore.setCurrentPage(pageNumber);
+            currentPageStore.setOffset(projectConfig.ELEMS_PER_PAGE * (pageNumber - 1));
             setSearchParams(
                 new URLSearchParams([
                     ["search", `${searchValue}`],
@@ -34,10 +34,11 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({ searchValue, ty
                 ]),
             );
         },
-        [searchParams, currentPageStore.offset, searchValue],
+        [searchParams, currentPageStore.offset, currentPageStore.currentPage, searchValue],
     );
 
     React.useEffect(() => {
+        currentPageStore.setCurrentPage(+searchParams.page.toString())
         currentPageStore.getRecipeList(searchValue, typeValue);
     }, [currentPageStore, currentPageStore.currentPage, searchValue, typeValue]);
 
@@ -63,11 +64,11 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({ searchValue, ty
                 ) : (
                     <p className={styles["recipe-body__not-found-text"]}>Ничего не найдено</p>
                 )}
-                {currentPageStore.numberOfItems > 0 && (
+                {currentPageStore.numberOfItems > projectConfig.ELEMS_PER_PAGE && (
                     <Pagination
                         callback={handlePaginationClick}
                         totalPages={Math.ceil(currentPageStore.numberOfItems / projectConfig.ELEMS_PER_PAGE)}
-                        currentPage={currentPageStore.currentPage}
+                        currentPage={+searchParams.page.toString()}
                     />
                 )}
             </WithLoader>
