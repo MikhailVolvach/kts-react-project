@@ -9,4 +9,5 @@ export const projectConfig = {
         "64bb192a08e1463b929034337dd47399"
     ],
     ELEMS_PER_PAGE: 6,
+    API_KEY_NUM: 2,
 };

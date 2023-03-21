@@ -42,9 +42,8 @@ export default class RecipesListPageStore implements ILocalStore {
     }
 
     private readonly _address = projectConfig.ADDRESS;
-    private _apiKeyFlag = 0;
-    // private readonly _apiKey = projectConfig.API_KEY[this._apiKeyFlag];
-    private _apiKey = "";
+
+    private readonly _apiKey = projectConfig.API_KEY[projectConfig.API_KEY_NUM];
     private readonly _path: string = "";
 
     private _currentPage = 1;
@@ -58,7 +57,6 @@ export default class RecipesListPageStore implements ILocalStore {
     private _numberOfItems = 0;
 
     async getRecipeList(searchValue: string, typeValue: string): Promise<void> {
-        this._apiKey = projectConfig.API_KEY[this._apiKeyFlag];
         this._meta = Meta.loading;
         this._list = getInitialCollectionModel();
         this._numberOfItems = 0;
@@ -75,7 +73,6 @@ export default class RecipesListPageStore implements ILocalStore {
         const url = this._address + "/" + this._path + "?" + qs.stringify(query) + "&apiKey=" + this._apiKey;
 
         const response = await axios.get(url);
-
         runInAction(() => {
             if (response.status !== 200) {
                 this._meta = Meta.error;
@@ -91,11 +88,6 @@ export default class RecipesListPageStore implements ILocalStore {
             } catch (e) {
                 this._meta = Meta.error;
                 this._list = getInitialCollectionModel();
-                if (this._apiKeyFlag < projectConfig.API_KEY.length) {
-                    this._apiKeyFlag++;
-                } else {
-                    this._apiKeyFlag = 0;
-                }
             }
         });
     }

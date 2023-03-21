@@ -38,7 +38,7 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({ searchValue, ty
     );
 
     React.useEffect(() => {
-        currentPageStore.setCurrentPage(+searchParams.page.toString())
+        currentPageStore.setCurrentPage(+searchParams.page.toString());
         currentPageStore.getRecipeList(searchValue, typeValue);
     }, [currentPageStore, currentPageStore.currentPage, searchValue, typeValue]);
 
