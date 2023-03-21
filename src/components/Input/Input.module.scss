@@ -14,14 +14,14 @@
   border: 0;
   border-radius: $standard-radius;
   outline: 0;
-
+  
   &::placeholder {
     color: $dark-grey;
     opacity: 0.5;
   }
 
   &:focus {
-    background: $gradient-pink-focused;
+     background: $gradient-pink-focused;
   }
 
   &_disabled {

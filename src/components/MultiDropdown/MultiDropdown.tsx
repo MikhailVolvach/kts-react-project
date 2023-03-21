@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 import MultiDropdownOptions, { MultiDropdownOptionsProps } from "./components/MultiDropdownOptions";
 import styles from "./MultiDropdown.module.scss";
+import useDelayUnmount from "utils/useDelayUnmount";
 
 export type MultiDropdownProps = MultiDropdownOptionsProps & {
     disabled?: boolean;
@@ -19,14 +20,15 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     placeholder = "Pick something",
     className,
 }) => {
+    const [isVisible, setIsVisible] = React.useState<boolean>(false);
+    const show = useDelayUnmount(isVisible, 350);
+
     const MultiDropdownClass = classNames(
         styles["multi-dropdown"],
-        styles["multi-dropdown_picked"] && value,
-        styles["multi-dropdown_disabled"] && disabled,
+        value && styles["multi-dropdown_picked"],
+        disabled && styles["multi-dropdown_disabled"],
         className,
     );
-
-    const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
     const handleChange = React.useCallback((value: string) => {
         onChange(value);
@@ -47,7 +49,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             >
                 {value ? value : placeholder}
             </div>
-            {isVisible && !disabled && <MultiDropdownOptions options={options} value={value} onChange={handleChange} />}
+            {show && !disabled && <MultiDropdownOptions className={isVisible ? styles["multi-dropdown__options_visible"] : styles["multi-dropdown__options_invisible"]} options={options} value={value} onChange={handleChange} />}
         </div>
     );
 };

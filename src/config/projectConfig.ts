@@ -6,6 +6,6 @@
 // "64bb192a08e1463b929034337dd47399"
 export const projectConfig = {
     ADDRESS: "https://api.spoonacular.com/recipes",
-    API_KEY: "374b6b2cbf01429284a2a30b23f45f97",
+    API_KEY: "9cf15f974d3b4aac8c3cdf47e72525ad",
     ELEMS_PER_PAGE: 6,
 };

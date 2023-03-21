@@ -2,7 +2,9 @@
 
 .multi-dropdown__options {
   top: 0;
+
+  // height: 0;
   margin-top: 4px;
   background-color: $non-selected-color;
-  border-radius: $standard-radius;
+  border-radius: $standard-radius;  
 }
