@@ -2,6 +2,8 @@
 @import "styles/variables";
 
 .recipe {
+  height: 100%;
+
   &__loader {
     @include width-height(100%, 100%);
 
@@ -9,6 +11,11 @@
   }
 
   &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100%;
     padding: 24px;
   }
 }

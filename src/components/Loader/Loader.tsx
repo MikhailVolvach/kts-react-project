@@ -11,7 +11,7 @@ export type LoaderProps = {
     className?: string;
 };
 
-const Loader: React.FC<LoaderProps> = ({ loading = true, size = "m", className }) => {
+const Loader: React.FC<LoaderProps> = ({ loading = true, size = "m", className="" }) => {
     if (!loading) {
         return null;
     }

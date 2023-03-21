@@ -2,8 +2,8 @@ import React from "react";
 
 import "./App.scss";
 
-import Recipes from "pages/RecipeListPage";
-import Recipe from "pages/RecipePage";
+import RecipeListPage from "pages/RecipeListPage";
+import RecipePage from "pages/RecipePage";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useQueryParamsStoreInit } from "store/RootStore/hooks/useQueryParamsStoreInit";
 
@@ -14,9 +14,9 @@ function App() {
         <div className="app">
             <div className="app__container">
                 <Routes>
-                    <Route path="/" element={<Recipes />} />
+                    <Route path="/" element={<RecipeListPage />} />
                     <Route path="/recipe">
-                        <Route path=":id" element={<Recipe />} />
+                        <Route path=":id" element={<RecipePage />} />
                     </Route>
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

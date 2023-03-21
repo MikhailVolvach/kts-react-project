@@ -44,8 +44,7 @@ const RecipeListPageBody: React.FC<RecipeListPageBodyProps> = ({ searchValue, ty
 
     return (
         <div className={classNames(styles.recipe__body, "recipe-body")}>
-            <WithLoader loading={currentPageStore.meta === Meta.loading} className={styles.recipe__loader}>
-                {" "}
+              <WithLoader loading={currentPageStore.meta === Meta.loading} className={styles.recipe__loader}>
                 {currentPageStore.numberOfItems ? (
                     <div className={styles["recipe-body__container"]}>
                         {currentPageStore.list?.map((recipe) => (
