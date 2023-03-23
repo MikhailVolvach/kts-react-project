@@ -29,7 +29,7 @@ const RecipeListPageHeader: React.FC<RecipeListPageHeaderProps> = ({
     }, []);
 
     const handleSearch = React.useCallback(() => {
-        onSearchButtonClick(inputValue);
+        onSearchButtonClick(inputValue.trim());
     }, [inputValue, onSearchButtonClick]);
 
     const handleDropdownClick = React.useCallback(

@@ -1,7 +1,7 @@
 import { range } from "utils/range";
 
 const fetchPageNumbers = (totalPages: number, currentPage: number, pageNeighbours = 1) => {
-    const totalNumbers = pageNeighbours * 2 + 3;
+    const totalNumbers = pageNeighbours * 2 + 2;
     const totalBlocks = totalNumbers + 2;
 
     if (totalPages > totalBlocks) {

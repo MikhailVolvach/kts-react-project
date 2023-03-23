@@ -14,6 +14,8 @@ export type PaginationProps = {
 };
 
 const Pagination: React.FC<PaginationProps> = ({ totalPages, callback, currentPage = 0 }) => {
+    const SKIP_PAGES = 2;
+
     const pages = fetchPageNumbers(totalPages, currentPage);
 
     const handleClick = React.useCallback(
@@ -28,11 +30,11 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, callback, currentPa
     );
 
     const handlePrevious = React.useCallback(() => {
-        callback(currentPage - 1);
+        callback(currentPage - SKIP_PAGES);
     }, [callback, currentPage]);
 
     const handleNext = React.useCallback(() => {
-        callback(currentPage + 1);
+        callback(currentPage + SKIP_PAGES);
     }, [callback, currentPage]);
 
     return (
