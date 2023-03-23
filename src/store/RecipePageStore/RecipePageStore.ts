@@ -16,7 +16,7 @@ type PrivateFields = "_list" | "_meta" | "_numberOfItems";
 
 export default class RecipePageStore implements ILocalStore {
     private readonly _address = projectConfig.ADDRESS;
-    private _apiKey = projectConfig.API_KEY[2];
+    private _apiKey = projectConfig.API_KEY[3];
     private readonly _path: string = "";
 
     constructor(path: string) {
