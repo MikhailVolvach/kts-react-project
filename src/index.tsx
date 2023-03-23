@@ -5,7 +5,7 @@ import React from "react";
 import "styles/styles.scss";
 
 import ReactDOM from "react-dom/client";
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 
 import App from "./App/App";
 
